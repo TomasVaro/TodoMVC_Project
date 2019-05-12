@@ -6,7 +6,7 @@
 
 body {
 	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-	background: #f6f6f6;
+    background: #f6f6f6;
 }
 
 h1{
@@ -20,6 +20,7 @@ h1{
 
 main{
     width: 550px;
+    max-width: 100%;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
@@ -64,7 +65,8 @@ div{
 }
 
 nav{
-    width: 350px;
+    width: 100%;
+    padding-right: 18%;
 }
 
 ul{
@@ -74,7 +76,7 @@ ul{
 }
 
 #filter_buttons button{
-    padding: 4px 13px;
+    padding: 4px 13px 4px;
 	background: rgba(0, 0, 0, 0.003);
     border-style: none;
     color: #777;
@@ -107,4 +109,37 @@ a{
 a:hover{
     color: #bfbfbf;
     text-decoration: underline;
+}
+
+/* Mobilanpassning med Media Queries*/
+@media screen and (max-width: 20em) {
+    section {
+        flex-direction: column;
+    }
+
+    nav{
+        justify-content: center;
+    }
+
+    #nr_items_left{
+        justify-content: center;
+    }
+
+    #filter_buttons{
+        margin-right: 30%;
+        width: 123%;
+        justify-content: center;
+    }
+
+    #filter_buttons button{
+        padding: 6px;
+    }
+
+    footer{
+        padding-top: 25px;
+    }
+    
+    .footer{
+        padding: 0;
+    }
 }
