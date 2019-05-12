@@ -1,40 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Group 2 • ToDoMVC</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="index.js" defer></script>
+        <link rel="stylesheet" href="index.css">
+        <link rel="stylesheet" href="index_mobile.css" media="screen and (max-width: 480px)">
+    </head>
 
-<head>
-    <meta charset="UTF-8">
-    <title>Group 2 • ToDoMVC</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="index.js" defer></script>
-    <link rel="stylesheet" href="index.css">
-    <link rel="stylesheet" href="index_mobile.css" media="screen and (max-width: 480px)">
-</head>
-
-<body>
-    <h1>todos</h1>
-    <main>
-        <form id="new-todo-form">
-            <input id="new-todo" type="text" placeholder="What needs to be done?">
-        </form>
-        <ul id="todo-list">
-            <li class="todo-item todo-item-blueprint">
-               <input type="checkbox" unchecked>
-               <input class="todo-label" type="text" value="Do something">
-               <button class="todo-button-remove">x</button>
-            </li>
-            <!-- <li class="todo-item" style="display: none">
-               <input type="checkbox" unchecked>
-               <input class="todo-label" type="text" value="Do something">
-               <button class="todo-button-remove">x</button>
+    <body>
+        <h1>todos</h1>
+        <main>
+            <form id="new-todo-form">
+                <input id="new-todo" type="text" placeholder="What needs to be done?">
+            </form>
+            <ul id="todo-list">
+                <li class="todo-item todo-item-blueprint">
+                    <input type="checkbox" unchecked>
+                    <input class="todo-label" type="text" value="Do something">
+                    <button class="todo-button-remove">x</button>
+                </li>
+                <!-- <li class="todo-item" style="display: none">
+                <input type="checkbox" unchecked>
+                <input class="todo-label" type="text" value="Do something">
+                <button class="todo-button-remove">x</button>
             </li> -->
         </ul>
         <section>
-            <div id="nr_items_left">
-                <p id="nr_left">2</p>
-                <p id="items_left">&nbsp;items&nbsp;left</p>
+            <div id="nr-items-left">
+                <p id="nr-left">2</p>
+                <p id="items-left">&nbsp;items&nbsp;left</p>
             </div>
             <nav>
-                <ul id="filter_buttons">
+                <ul id="filter-buttons">
                     <li><button>All</button></li>
                     <li><button>Active</button></li>
                     <li><button>Completed</button></li>
@@ -47,6 +46,5 @@
         <p class="footer">Written by <a href="www.example.com">group 2</a></p>
         <p class="footer">Part of <a href="http://todomvc.com/">TodoMVC</a></p>
     </footer>
-</body>
-
+    </body>
 </html>

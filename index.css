@@ -9,7 +9,7 @@ body {
     background: #f6f6f6;
 }
 
-h1{
+h1 {
     height: auto;
     font-weight: 100;
     text-align: center;
@@ -18,7 +18,7 @@ h1{
     font-size: 100px;
 }
 
-main{
+main {
     width: 550px;
     max-width: 100%;
     margin-left: auto;
@@ -78,11 +78,11 @@ main{
     height: 40px;
 }
 
-input[type="text"]{
+input[type="text"] {
     color: #4D4D4D;
 }
 
-section{
+section {
     display: flex;
     padding: .6em 0;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2),
@@ -94,25 +94,25 @@ section{
     border-top: 1px solid #e6e6e6;
 }
 
-div{
+div {
     color: #777;
     font-size: 14px;
     display: flex;
     padding: 4px 15px;
 }
 
-nav{
+nav {
     width: 100%;
     padding-right: 18%;
 }
 
-#filter_buttons {
+#filter-buttons {
     list-style: none;
     background-color: white;
     display: inline-flex;
 }
 
-#filter_buttons button{
+#filter-buttons button {
     padding: 4px 13px 4px;
 	background: rgba(0, 0, 0, 0.003);
     border-style: none;
@@ -120,30 +120,30 @@ nav{
     font-size: 14px;
 }
 
-button:active{
+button:active {
     border-style: solid;
     border-radius: 4px;
     border-width: 1px;
     border-color: rgba(175, 47, 47, 0.15);
 }
 
-footer{
+footer {
     text-align: center;
     color: #bfbfbf;
     font-size: 10px;
     padding-top: 60px;
 }
 
-.footer{
+.footer {
     padding: .4em;
 }
 
-a{
+a {
     text-decoration: none;
     color: #bfbfbf;
 }
 
-a:hover{
+a:hover {
     color: #bfbfbf;
     text-decoration: underline;
 }
