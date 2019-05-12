@@ -25,14 +25,7 @@ main{
     margin-right: auto;
     text-align: center;
     background-color: white;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2),
-                0 8px 0 -3px #f6f6f6,
-                0 9px 1px -3px rgba(0, 0, 0, 0.2),
-                0 16px 0 -6px #f6f6f6,
-                0 17px 2px -6px rgba(0, 0, 0, 0.2),
-                0 24px 40px -9px rgba(0, 0, 0, 0.1),
-                0 3px 3px 0.2px rgba(0, 0, 0, 0.2);
-
+    box-shadow: 0 24px 50px -8px rgba(0, 0, 0, 0.15);
 }
 
 #New_Todo {
@@ -40,7 +33,7 @@ main{
     width: 100%;
     font-size: 24px;
     padding: 19px 14px 19px 60px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 ::placeholder{
@@ -55,6 +48,12 @@ input[type="text"]{
 section{
     display: flex;
     padding: .6em 0;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2),
+                0 8px 0 -3px #f6f6f6,
+                0 9px 1px -3px rgba(0, 0, 0, 0.2),
+                0 16px 0 -6px #f6f6f6,
+                0 17px 2px -6px rgba(0, 0, 0, 0.2),
+                0 2px 3px 0.2px rgba(0, 0, 0, 0.2);
 }
 
 div{
