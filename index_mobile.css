@@ -1,0 +1,29 @@
+section {
+    flex-direction: column;
+}
+
+nav{
+    justify-content: center;
+}
+
+#nr_items_left{
+    justify-content: center;
+}
+
+#filter_buttons{
+    margin-right: 30%;
+    width: 123%;
+    justify-content: center;
+}
+
+#filter_buttons button{
+    padding: 6px;
+}
+
+footer{
+    padding-top: 25px;
+}
+
+.footer{
+    padding: 0;
+}
