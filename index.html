@@ -13,7 +13,21 @@
 <body>
     <h1>todos</h1>
     <main>
-        <input id="New_Todo" type="text" placeholder="What needs to be done?">
+        <form id="new-todo-form">
+            <input id="new-todo" type="text" placeholder="What needs to be done?">
+        </form>
+        <ul id="todo-list">
+            <li class="todo-item todo-item-blueprint">
+               <input type="checkbox" unchecked>
+               <input class="todo-label" type="text" value="Do something">
+               <button class="todo-button-remove">x</button>
+            </li>
+            <!-- <li class="todo-item" style="display: none">
+               <input type="checkbox" unchecked>
+               <input class="todo-label" type="text" value="Do something">
+               <button class="todo-button-remove">x</button>
+            </li> -->
+        </ul>
         <section>
             <div id="nr_items_left">
                 <p id="nr_left">2</p>
