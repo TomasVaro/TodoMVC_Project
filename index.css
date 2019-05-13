@@ -157,9 +157,13 @@ nav {
 
 #filter-buttons button:hover {
     border-style: solid;
-    border-radius: 4px;
+    border-radius: 3px;
     border-width: 1px;
-    border-color: rgba(175, 47, 47, 0.15);
+    border-color: rgba(175, 47, 47, 0.10);
+}
+
+#filter-buttons button:focus {
+    border-color: rgba(175, 47, 47, 0.20);
 }
 
 #clear-button {
