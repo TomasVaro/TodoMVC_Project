@@ -26,22 +26,38 @@ function createNewTodo(text) {
     createdListItem.querySelector(".todo-button-remove")
         .addEventListener("click", () => { createdListItem.remove(); });
 
+    const textbox = createdListItem.querySelector(".todo-textbox");
     const label = createdListItem.querySelector(".todo-label");
+    label.textContent = text;
     // Textbox should not be editable to begin with.
-    label.readOnly = true;
-    label.value = text;
+    // textbox.readOnly = true;
+    textbox.value = text;
     // Makes textbox editable on double click.
-    label.addEventListener("dblclick", () => {
-         label.readOnly = false;
-         label.setSelectionRange(label.selectionEnd, label.selectionEnd);
-    });
+
+    textbox.addEventListener("dblclick", () => {
+         textbox.readOnly = false;
+         textbox.setSelectionRange(textbox.selectionEnd, textbox.selectionEnd);
+        });
+        
+        label.addEventListener("dblclick", () => {
+            label.hidden = true;
+            textbox.hidden = false;
+            // textbox.readOnly = false;
+            textbox.focus();
+    })
     // Textbox should not be editable when it loses focus.
-    label.addEventListener("blur", () => { label.readOnly = true; });
+    textbox.addEventListener("blur", () => { 
+        // textbox.readOnly = true;
+        textbox.hidden = true;
+        label.hidden = false;
+     });
     // Textbox should not be editable on "enter" key click.
-    label.addEventListener("keydown", (event) => {
+    textbox.addEventListener("keydown", (event) => {
         if (event.keyCode === 13) {
-            label.readOnly = true;
-            label.setSelectionRange(label.selectionEnd, label.selectionEnd);
+            // textbox.readOnly = true;
+            // textbox.setSelectionRange(textbox.selectionEnd, textbox.selectionEnd);
+            textbox.hidden = true;
+            label.hidden = false;
         }
     });
 }
