@@ -105,8 +105,8 @@ main {
     top: 10px;
     width: 10px;
     height: 18px;
-    border-bottom: 2px solid #6ac7b5;
-    border-right: 2px solid #6ac7b5;
+    border-bottom: 2px solid #5dc2af;
+    border-right: 2px solid #5dc2af;
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg) translate(-50%, 0);
     opacity: 0;
