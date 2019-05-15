@@ -9,7 +9,7 @@
         if (event.keyCode === 13) {
             createNewTodo(textbox.value);
             newTodoForm.reset();
-        }
+        }        
     });
 })();
 
@@ -35,22 +35,24 @@ function createNewTodo(text) {
     // Makes textbox editable on double click.
 
     textbox.addEventListener("dblclick", () => {
-         textbox.readOnly = false;
-         textbox.setSelectionRange(textbox.selectionEnd, textbox.selectionEnd);
-        });
-        
-        label.addEventListener("dblclick", () => {
-            label.hidden = true;
-            textbox.hidden = false;
-            // textbox.readOnly = false;
-            textbox.focus();
+        textbox.readOnly = false;
+        textbox.setSelectionRange(textbox.selectionEnd, textbox.selectionEnd);
+    });
+
+    label.addEventListener("dblclick", () => {
+        label.hidden = true;
+        textbox.hidden = false;
+        // textbox.readOnly = false;
+        textbox.focus();
     })
+
     // Textbox should not be editable when it loses focus.
-    textbox.addEventListener("blur", () => { 
+    textbox.addEventListener("blur", () => {
         // textbox.readOnly = true;
         textbox.hidden = true;
         label.hidden = false;
-     });
+    });
+    
     // Textbox should not be editable on "enter" key click.
     textbox.addEventListener("keydown", (event) => {
         if (event.keyCode === 13) {
@@ -58,6 +60,9 @@ function createNewTodo(text) {
             // textbox.setSelectionRange(textbox.selectionEnd, textbox.selectionEnd);
             textbox.hidden = true;
             label.hidden = false;
+            label.textContent = textbox.value
         }
     });
+    
+    
 }
