@@ -14,17 +14,21 @@ nav{
     justify-content: center;
 }
 
-#nr_items_left{
+#nr-items-left{
     justify-content: center;
 }
 
-#filter_buttons{
-    width: 122%;
+#filter-buttons{
     justify-content: center;
 }
 
-#filter_buttons button{
+#filter-buttons button{
     padding: 6px;
+}
+
+#clear-button {
+    border: 1px solid red;
+    margin-right: 50px;
 }
 
 footer{

@@ -14,8 +14,8 @@ h1 {
     font-weight: 100;
     text-align: center;
     color: rgba(175, 47, 47, 0.15);
-    padding: 10px 10px 5px 10px;
-    font-size: 100px;
+    padding: 10.5px 10px 4.5px 10px;
+    font-size: 6.25em;
 }
 
 main {
@@ -25,12 +25,13 @@ main {
     margin-right: auto;
     text-align: center;
     background-color: white;
-    box-shadow: 0 20px 50px -8px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 20px 50px -8px rgba(0, 0, 0, 0.18);
 }
 
 #new-todo {
     border: none;
     outline:none;
+    background-color: rgba(0, 0, 0, 0.003);
     width: 100%;
     font-size: 24px;
     padding: 19px 14px 19px 60px;
@@ -71,17 +72,23 @@ main {
     border: none;
 }
 
-.todo-label {
+.todo-textbox, .todo-label{
     padding: 15px 14px 15px 60px;
     font-size: 24px;
     border: none;
     flex: 1;
     background-color: rgba(255, 255, 255, 0);
+    color: #4D4D4D;
+    outline: 2px solid red;
+    text-align: left;
+
+
 }
 
 .todo-item input[type="checkbox"] {
     display: none;
 }
+
 .checkbox-round {
     position: absolute;
     border: .4px solid #e6e6e6;
@@ -112,15 +119,10 @@ main {
     opacity: 0;
 }
 
-
-input[type="text"] {
-    color: #4D4D4D;
-}
-
 section {
     display: grid;
     grid-template-columns: 1fr 3fr 1fr;
-    padding: .3em 0;
+    padding: .31em 0;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2),
                 0 8px 0 -3px #f6f6f6,
                 0 9px 1px -3px rgba(0, 0, 0, 0.2),
@@ -138,18 +140,17 @@ section {
 }
 
 nav {
-    margin-left: 28px;
 }
 
 #filter-buttons {
+    padding: 5px 0 5px 26px;
     list-style: none;
-    background-color: white;
     display: inline-flex;
 }
 
-#filter-buttons button {
-    outline:none;
-    padding: 6px 12px;
+#filter-buttons label {
+    margin: 3px 5px;
+    padding: 3px 7px;
     background: rgba(0, 0, 0, 0.003);
     border-style: solid;
     border-radius: 4px;
@@ -159,40 +160,52 @@ nav {
     font-size: 14px;
 }
 
+#filter-buttons input[type="radio"] {
+    outline:none;
+    display: none;
+}
+
+#filter-buttons input:checked + label{
+    border-color: rgba(175, 47, 47, 0.20);
+    border-style: solid;
+    border-radius: 2.8px;
+    border-width: 1px;
+}
+
+#filter-buttons label:hover {
+    border-color: rgba(175, 47, 47, 0.10);
+}
+
 #clear-button {
     padding: 5px 14px;
     list-style: none;
-    background-color: white;
     display: inline-flex;
 }
 
 #clear-button button {
     outline:none;
     background: rgba(0, 0, 0, 0.003);
-    border-style: solid;
-    border-radius: 4px;
-    border-width: 1px;
-    border-color: rgba(0, 0, 0, 0);
+    border: none;
+    padding-right: 1px;
     color: #777;
     font-size: 14px;
 }
 
-#filter-buttons button:active {
-    border-style: solid;
-    border-radius: 4px;
-    border-width: 1px;
-    border-color: rgba(175, 47, 47, 0.15);
+#clear-button button:hover {
+    color: #777;
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 footer {
     text-align: center;
     color: #bfbfbf;
     font-size: 10px;
-    padding-top: 60px;
+    padding-top: 60.5px;
 }
 
 .footer {
-    padding: .4em;
+    padding: .42em;
 }
 
 a {
