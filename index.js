@@ -1,5 +1,5 @@
-// Run on page load.
-function startup() {
+// Run immediately on page load.
+(function startup() {
     const newTodoForm = document.querySelector("#new-todo-form");
     const textbox = newTodoForm.querySelector("#new-todo");
 
@@ -11,7 +11,7 @@ function startup() {
             newTodoForm.reset();
         }
     });
-}
+})();
 
 // Creates a new todo list item element.
 function createNewTodo(text) {
@@ -45,7 +45,3 @@ function createNewTodo(text) {
         }
     });
 }
-
-// On page load.
-// -----------------------------------------------------------------------------
-startup();
