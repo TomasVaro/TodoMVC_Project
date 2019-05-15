@@ -6,29 +6,25 @@ body{
     margin: 0 5px 0 5px;
 }
 
+::placeholder{
+    margin: 0;
+}
+
+#new-todo {
+    padding: 19px 19px;
+}
+
 section {
+    display: flex;
     flex-direction: column;
 }
 
-nav{
+div {
     justify-content: center;
 }
 
-#nr-items-left{
+ul {
     justify-content: center;
-}
-
-#filter-buttons{
-    justify-content: center;
-}
-
-#filter-buttons button{
-    padding: 6px;
-}
-
-#clear-button {
-    border: 1px solid red;
-    margin-right: 50px;
 }
 
 footer{

@@ -15,6 +15,7 @@
     <main>
         <form id="new-todo-form">
             <input id="new-todo" type="text" placeholder="What needs to be done?">
+            <button id="check-all">❯</button>
         </form>
         <div id="todo-and-items-left">
             <ul id="todo-list">
@@ -22,12 +23,9 @@
                     <label class="checkbox-round">
                         <input type="checkbox" unchecked>
                         <span class="checkmark"></span>
-                        <!-- <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                            <line x1="0" y1="30" x2="30" y2="100" stroke="black">
-                        </svg> -->
                     </label>
                     <input class="todo-textbox" type="text" value="Do something" hidden>
-                    <label class="todo-label">Example</label>
+                    <label class="todo-label"></label>
                     <button class="todo-button-remove">
                         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 512 512">
                         <g id="icomoon-ignore"></g>
@@ -66,9 +64,7 @@
                     <ul id="clear-button">
                         <li><button>Clear&nbsp;completed</button></li>
                     </ul>
-                </nav>
-
-                
+                </nav>                
             </section>
         </div>
     </main>
