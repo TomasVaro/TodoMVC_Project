@@ -5,26 +5,60 @@
 
     newTodoForm.onsubmit = event => event.preventDefault();
     newTodoForm.addEventListener("keydown", (event) => {
-        // "Enter"
+        // "Enter = 13"
         if (event.keyCode === 13) {
-            if(textbox.value != ""){
+            if (textbox.value != "") {
                 createNewTodo(textbox.value);
                 newTodoForm.reset();
             }
         }
     });
+
+    // Checks or unchecks checksboxes    
+    const checkAllButton = document.querySelector("#check-all");
+    checkAllButton.addEventListener("mousedown", () => {
+        onCheckAllButtonClick();
+    });
 })();
+
+function onCheckAllButtonClick(){
+    const checkBoxes = Array.from(document.querySelectorAll(".todo-item:not(.todo-item-blueprint) .checkbox-round input"))
+    const allChecked = checkBoxes.every(cb => cb.checked === true);
+    
+    if (allChecked === true) {
+        checkBoxes.forEach(cb => cb.checked = false);
+    }
+    else{
+        checkBoxes.forEach(cb => cb.checked = true);
+    }
+}
+
+function onClearButtonClick(){
+    const checkBoxes = Array.from(document.querySelectorAll(".todo-item:not(.todo-item-blueprint) .checkbox-round input"))
+    
+    const checkboxesChecked = checkBoxes.filter(cb => cb.checked === true);
+    for(let i = 0; i < checkboxesChecked.length; i++ ){
+        if(checkboxesChecked[i] === true){
+
+        }
+    }
+}
+
+
+
+
+
 
 
 // Check browser support for WebStorage
-if (typeof(Storage) !== "undefined") {
-    // Store
-    localStorage.setItem("lastname", "Smith");
-    // Retrieve
-    document.getElementById("result").innerHTML = localStorage.getItem("lastname");
-} else {
-    document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
-}
+// if (typeof(Storage) !== "undefined") {
+//     // Store
+//     localStorage.setItem("lastname", "Smith");
+//     // Retrieve
+//     document.getElementById("result").innerHTML = localStorage.getItem("lastname");
+// } else {
+//     document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
+// }
 
 
 

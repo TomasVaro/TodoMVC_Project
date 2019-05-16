@@ -78,9 +78,13 @@ form {
     border-bottom: 1px solid #e6e6e6;
 }
 
-.todo-item:hover p {
+.todo-label:hover + div .todo-button-remove p {
     color: #CC9A9A;
 }
+
+/* .todo-textbox :hover + div .todo-button-remove:hover p {
+    color: rgba(0, 0, 0, 0);
+} */
 
 .todo-item-blueprint {
     display: none;
@@ -95,6 +99,7 @@ form {
     background-color: rgba(0, 0, 0, 0);
     /* opacity: 0; */
     border: 0;
+    outline: rgba(0, 0, 0, 0);
     padding: 0 8px;
     border-radius: 50%;
 }
@@ -104,6 +109,7 @@ form {
     transform: rotate(45deg);
     font-size: 2.4em;
     color: rgba(0, 0, 0, 0);
+    user-select: none;
 }
 
 .todo-button-remove:hover p{
@@ -113,7 +119,7 @@ form {
 }
 
 .todo-textbox, .todo-label{
-    padding: 15px 14px 15px 14px;
+    padding: 15px 14px 20px 14px;
     font-size: 1.55em;
     border: none;
     flex: 1;
@@ -149,6 +155,7 @@ form {
 .checkbox-round input[type="checkbox"]:checked + .checkmark {
     opacity: 1;
 }
+
 .checkmark {
     position: absolute;
     top: 10px;
