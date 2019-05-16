@@ -7,11 +7,26 @@
     newTodoForm.addEventListener("keydown", (event) => {
         // "Enter"
         if (event.keyCode === 13) {
-            createNewTodo(textbox.value);
-            newTodoForm.reset();
+            if(textbox.value != ""){
+                createNewTodo(textbox.value);
+                newTodoForm.reset();
+            }
         }
     });
 })();
+
+
+// Check browser support for WebStorage
+if (typeof(Storage) !== "undefined") {
+    // Store
+    localStorage.setItem("lastname", "Smith");
+    // Retrieve
+    document.getElementById("result").innerHTML = localStorage.getItem("lastname");
+} else {
+    document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
+}
+
+
 
 // Creates a new todo list item element.
 function createNewTodo(text) {
@@ -53,7 +68,8 @@ function createNewTodo(text) {
         if (event.keyCode === 13) {
             textbox.hidden = true;
             label.hidden = false;
-            label.textContent = textbox.value
+            label.textContent = textbox.value;
+            localStorage.setItem("labelContent", "label.textContent");
         }
     });
 }
