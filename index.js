@@ -9,7 +9,7 @@
         if (event.keyCode === 13) {
             createNewTodo(textbox.value);
             newTodoForm.reset();
-        }        
+        }
     });
 })();
 
@@ -18,7 +18,9 @@ function createNewTodo(text) {
     const todoList = document.querySelector("#todo-list");
     const blueprint = document.querySelector(".todo-item-blueprint").cloneNode(true);
 
+    // Makes element visible.
     blueprint.classList.remove("todo-item-blueprint");
+
     // Append blueprint to list and return the element that was just created.
     const createdListItem = todoList.appendChild(blueprint);
 
@@ -28,41 +30,30 @@ function createNewTodo(text) {
 
     const textbox = createdListItem.querySelector(".todo-textbox");
     const label = createdListItem.querySelector(".todo-label");
+
+    // Label and textbox should display value of text.
     label.textContent = text;
-    // Textbox should not be editable to begin with.
-    // textbox.readOnly = true;
     textbox.value = text;
-    // Makes textbox editable on double click.
 
-    textbox.addEventListener("dblclick", () => {
-        textbox.readOnly = false;
-        textbox.setSelectionRange(textbox.selectionEnd, textbox.selectionEnd);
-    });
-
+    // Switch label to textbox.
     label.addEventListener("dblclick", () => {
         label.hidden = true;
         textbox.hidden = false;
-        // textbox.readOnly = false;
         textbox.focus();
     })
 
-    // Textbox should not be editable when it loses focus.
+    // Switch textbox to label on blur.
     textbox.addEventListener("blur", () => {
-        // textbox.readOnly = true;
         textbox.hidden = true;
         label.hidden = false;
     });
-    
-    // Textbox should not be editable on "enter" key click.
+
+    // Switch textbox to label on enter.
     textbox.addEventListener("keydown", (event) => {
         if (event.keyCode === 13) {
-            // textbox.readOnly = true;
-            // textbox.setSelectionRange(textbox.selectionEnd, textbox.selectionEnd);
             textbox.hidden = true;
             label.hidden = false;
             label.textContent = textbox.value
         }
     });
-    
-    
 }
