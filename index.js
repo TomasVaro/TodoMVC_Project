@@ -73,6 +73,7 @@ function createNewTodo(text) {
 
     const textbox = createdListItem.querySelector(".todo-textbox");
     const label = createdListItem.querySelector(".todo-label");
+    const checkboxRound = createdListItem.querySelector(".checkbox-round");
 
     // Label and textbox should display value of text.
     label.textContent = text;
@@ -82,6 +83,7 @@ function createNewTodo(text) {
     label.addEventListener("dblclick", () => {
         label.hidden = true;
         textbox.hidden = false;
+        checkboxRound.style.opacity = 0;
         textbox.focus();
     })
 
@@ -89,6 +91,7 @@ function createNewTodo(text) {
     textbox.addEventListener("blur", () => {
         textbox.hidden = true;
         label.hidden = false;
+        checkboxRound.style.opacity = 1;
     });
 
     // Switch textbox to label on enter.
@@ -97,7 +100,8 @@ function createNewTodo(text) {
             textbox.hidden = true;
             label.hidden = false;
             label.textContent = textbox.value;
-            localStorage.setItem("labelContent", "label.textContent");
+            checkboxRound.style.opacity = 1;
+            // localStorage.setItem("labelContent", "label.textContent");
         }
     });
 }
