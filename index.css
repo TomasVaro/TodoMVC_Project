@@ -155,7 +155,7 @@ form {
 }
 
 .checkbox-round input[type="checkbox"]:checked + .checkmark {
-    opacity: 1;
+    opacity: 1;    
 }
 
 .checkmark {
@@ -189,6 +189,7 @@ nav {
     color: #777;
     font-size: 0.875em;
     display: flex;
+    flex-direction: row;
     padding: 7px 15px;
 }
 
