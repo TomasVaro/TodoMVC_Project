@@ -22,14 +22,19 @@
 })();
 
 function onCheckAllButtonClick(){
-    const checkBoxes = Array.from(document.querySelectorAll(".todo-item:not(.todo-item-blueprint) .checkbox-round input"))
-    const allChecked = checkBoxes.every(cb => cb.checked === true);
+    const todoItems = Array.from(document.querySelectorAll(".todo-item:not(.todo-item-blueprint)"));
+    const allChecked = todoItems.every(ti => ti.querySelector(".checkbox-round input").checked === true);
 
     if (allChecked === true) {
-        checkBoxes.forEach(cb => cb.checked = false);
-    }
-    else{
-        checkBoxes.forEach(cb => cb.checked = true);
+        todoItems.forEach(ti => {
+            ti.querySelector(".checkbox-round input").checked = false;
+            updateCheckboxStyle(ti);
+        });
+    } else {
+        todoItems.forEach(ti => {
+            ti.querySelector(".checkbox-round input").checked = true;
+            updateCheckboxStyle(ti);
+        });
     }
 }
 
@@ -44,7 +49,7 @@ function onClearButtonClick(){
     }
 }
 
-function onCheckboxChange(listItem) {
+function updateCheckboxStyle(listItem) {
     // Get child elements.
     const label = listItem.querySelector(".todo-label");
     const checkbox = listItem.querySelector(".checkbox-round");
@@ -122,5 +127,5 @@ function createNewTodo(text) {
     });
 
     const checkbox = checkboxRound.querySelector("input");
-    checkbox.addEventListener("change", () => { onCheckboxChange(createdListItem); });
+    checkbox.addEventListener("change", () => { updateCheckboxStyle(createdListItem); });
 }
