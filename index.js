@@ -14,7 +14,7 @@
         }
     });
 
-    // Checks or unchecks checksboxes    
+    // Checks or unchecks checksboxes
     const checkAllButton = document.querySelector("#check-all");
     checkAllButton.addEventListener("mousedown", () => {
         onCheckAllButtonClick();
@@ -24,7 +24,7 @@
 function onCheckAllButtonClick(){
     const checkBoxes = Array.from(document.querySelectorAll(".todo-item:not(.todo-item-blueprint) .checkbox-round input"))
     const allChecked = checkBoxes.every(cb => cb.checked === true);
-    
+
     if (allChecked === true) {
         checkBoxes.forEach(cb => cb.checked = false);
     }
@@ -35,12 +35,28 @@ function onCheckAllButtonClick(){
 
 function onClearButtonClick(){
     const checkBoxes = Array.from(document.querySelectorAll(".todo-item:not(.todo-item-blueprint) .checkbox-round input"))
-    
+
     const checkBoxesChecked = checkBoxes.filter(cb => cb.checked === true);
     for(let i = 0; i < checkboxesChecked.length; i++ ){
         if(checkBoxesChecked[i] === true){
-            
+
         }
+    }
+}
+
+function onCheckboxChange(listItem) {
+    // Get child elements.
+    const label = listItem.querySelector(".todo-label");
+    const checkbox = listItem.querySelector(".checkbox-round");
+
+    if (checkbox.querySelector("input").checked) {
+        checkbox.style.borderColor = "#5dc2af";
+        label.style.textDecoration = "line-through";
+        label.style.color = "rgba(0, 0, 0, 0.1)";
+    } else {
+        checkbox.style.borderColor = "#e6e6e6";
+        label.style.textDecoration = "none";
+        label.style.color = "#4d4d4d";
     }
 }
 
@@ -104,4 +120,7 @@ function createNewTodo(text) {
             // localStorage.setItem("labelContent", "label.textContent");
         }
     });
+
+    const checkbox = checkboxRound.querySelector("input");
+    checkbox.addEventListener("change", () => { onCheckboxChange(createdListItem); });
 }
