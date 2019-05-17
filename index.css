@@ -35,7 +35,7 @@ form {
     position: relative;
 }
 
-#new-todo {
+input#new-todo {
     border: none;
     outline:none;
     color: #4d4d4d;
@@ -46,7 +46,7 @@ form {
     padding: 19px 14px 20px 60px;
 }
 
-#check-all {
+button#check-all {
     -webkit-transform: rotate(90deg);
     transform: rotate(90deg);
     position: absolute;
@@ -59,7 +59,7 @@ form {
 	padding: 10px 19px 10px 22px;
 }
 
-::placeholder{
+input#new-todo::placeholder{
     color: rgba(0, 0, 0, 0.1);
     font-style: italic;
 }

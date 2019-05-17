@@ -19,6 +19,12 @@
     checkAllButton.addEventListener("mousedown", () => {
         onCheckAllButtonClick();
     });
+
+    // Clears all completed
+    const checkClearButton = document.querySelector("#clear-button");
+    checkClearButton.addEventListener("mousedown", () => {
+        onClearButtonClick();
+    })
 })();
 
 function onCheckAllButtonClick(){
@@ -39,14 +45,10 @@ function onCheckAllButtonClick(){
 }
 
 function onClearButtonClick(){
-    const checkBoxes = Array.from(document.querySelectorAll(".todo-item:not(.todo-item-blueprint) .checkbox-round input"))
-
-    const checkBoxesChecked = checkBoxes.filter(cb => cb.checked === true);
-    for(let i = 0; i < checkboxesChecked.length; i++ ){
-        if(checkBoxesChecked[i] === true){
-
-        }
-    }
+    const todoItemsChecked = Array.from(document.querySelectorAll(".todo-item:not(.todo-item-blueprint)"))
+        .filter(ti => ti.querySelector(".checkbox-round input").checked === true);
+    
+    todoItemsChecked.forEach(ti => ti.remove());
 }
 
 function updateCheckboxStyle(listItem) {
@@ -61,18 +63,6 @@ function updateCheckboxStyle(listItem) {
         listItem.querySelector(".todo-label").classList.remove("checked");
     }
 }
-
-
-// Check browser support for WebStorage
-// if (typeof(Storage) !== "undefined") {
-//     // Store
-//     localStorage.setItem("lastname", "Smith");
-//     // Retrieve
-//     document.getElementById("result").innerHTML = localStorage.getItem("lastname");
-// } else {
-//     document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
-// }
-
 
 // Creates a new todo list item element.
 function createNewTodo(text) {
@@ -126,3 +116,16 @@ function createNewTodo(text) {
     const checkbox = checkboxRound.querySelector("input");
     checkbox.addEventListener("change", () => { updateCheckboxStyle(createdListItem); });
 }
+
+
+
+
+// Check browser support for WebStorage
+// if (typeof(Storage) !== "undefined") {
+//     // Store
+//     localStorage.setItem("lastname", "Smith");
+//     // Retrieve
+//     document.getElementById("result").innerHTML = localStorage.getItem("lastname");
+// } else {
+//     document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
+// }
