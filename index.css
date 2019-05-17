@@ -134,6 +134,10 @@ form {
     overflow-wrap: break-word;
     width: 0;
 }
+.todo-label.checked {
+    text-decoration: line-through;
+    color: rgba(0, 0, 0, 0.1);
+}
 .todo-textbox {
     box-shadow: inset 0 -1px 10px rgba(0, 0, 0, .2);
     border: 1px solid #999;
@@ -153,9 +157,12 @@ form {
     align-self: center;
     margin: 0 10px 0 10px;
 }
+.checkbox-round.checked {
+    border: .5px solid #5dc2af;
+}
 
 .checkbox-round input[type="checkbox"]:checked + .checkmark {
-    opacity: 1;    
+    opacity: 1;
 }
 
 .checkmark {

@@ -51,17 +51,14 @@ function onClearButtonClick(){
 
 function updateCheckboxStyle(listItem) {
     // Get child elements.
-    const label = listItem.querySelector(".todo-label");
     const checkbox = listItem.querySelector(".checkbox-round");
 
     if (checkbox.querySelector("input").checked) {
-        checkbox.style.borderColor = "#5dc2af";
-        label.style.textDecoration = "line-through";
-        label.style.color = "rgba(0, 0, 0, 0.1)";
+        checkbox.classList.add("checked");
+        listItem.querySelector(".todo-label").classList.add("checked");
     } else {
-        checkbox.style.borderColor = "#e6e6e6";
-        label.style.textDecoration = "none";
-        label.style.color = "#4d4d4d";
+        checkbox.classList.remove("checked");
+        listItem.querySelector(".todo-label").classList.remove("checked");
     }
 }
 
