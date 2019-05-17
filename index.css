@@ -80,6 +80,8 @@ form {
 
 .todo-label:hover + div .todo-button-remove p {
     color: #CC9A9A;
+    -webkit-transition: color 500ms;
+    transition: color 1000ms;
 }
 
 /* .todo-textbox :hover + div .todo-button-remove:hover p {

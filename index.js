@@ -36,18 +36,13 @@ function onCheckAllButtonClick(){
 function onClearButtonClick(){
     const checkBoxes = Array.from(document.querySelectorAll(".todo-item:not(.todo-item-blueprint) .checkbox-round input"))
     
-    const checkboxesChecked = checkBoxes.filter(cb => cb.checked === true);
+    const checkBoxesChecked = checkBoxes.filter(cb => cb.checked === true);
     for(let i = 0; i < checkboxesChecked.length; i++ ){
-        if(checkboxesChecked[i] === true){
-
+        if(checkBoxesChecked[i] === true){
+            
         }
     }
 }
-
-
-
-
-
 
 
 // Check browser support for WebStorage
@@ -59,7 +54,6 @@ function onClearButtonClick(){
 // } else {
 //     document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
 // }
-
 
 
 // Creates a new todo list item element.
