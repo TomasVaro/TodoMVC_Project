@@ -9,11 +9,12 @@
     newTodoForm.addEventListener("keydown", (event) => {
         // "Enter = 13"
         if (event.keyCode === 13) {
-            if (textbox.value != "") {
-                createNewTodo(textbox.value);
+            // Checks the input for empty string or only white spaces.
+            if (textbox.value.replace(/\s/g, '').length) {
+                createNewTodo(textbox.value.trim());
                 newTodoForm.reset();
                 section.classList.remove("hidden");
-                checkAll.classList.remove("hidden");
+                checkAll.classList.remove("hidden");    
             }
         }
     });
@@ -47,7 +48,7 @@ function createNewTodo(text) {
         .addEventListener("click", () => { 
             createdListItem.remove();
             ifToDolistEmpty();
-            updateNrLeft();            
+            updateNrLeft();
         });
 
     const textbox = createdListItem.querySelector(".todo-textbox");
@@ -136,22 +137,34 @@ function ifToDolistEmpty(){
     }
 }
 
-// Updates number of unchecked Todo-items.
+// Updates number of "items left" Todo.
 function updateNrLeft(){
-    const todoItemsChecked = Array.from(document.querySelectorAll(".todo-item:not(.todo-item-blueprint)"))
+    const todoItemsUnChecked = Array.from(document.querySelectorAll(".todo-item:not(.todo-item-blueprint)"))
         .filter(ti => ti.querySelector(".checkbox-round input").checked === false);
+    const todoItemsChecked = Array.from(document.querySelectorAll(".todo-item:not(.todo-item-blueprint)"))
+        .filter(ti => ti.querySelector(".checkbox-round input").checked === true);
     const nrLeft = document.querySelector("#nr-left");
     const itemsLeft = document.querySelector("#items-left");
 
-    nrLeft.textContent = todoItemsChecked.length + " i";
-    if(todoItemsChecked.length === 0 || todoItemsChecked.length > 1){
-        itemsLeft.textContent = "tems left";
+    
+    // Hide/show "Clear completed" button.
+    if(todoItemsChecked.length === 0) {
+        const checkClearButton = document.querySelector("#clear-button");
+        checkClearButton.style.visibility = "hidden";
     }
     else{
+        const checkClearButton = document.querySelector("#clear-button");
+        checkClearButton.style.visibility = "visible";
+    }
+
+    nrLeft.textContent = todoItemsUnChecked.length + " i";
+    if(todoItemsUnChecked.length === 1) {
         itemsLeft.textContent = "tem left";
     }
+    else{
+        itemsLeft.textContent = "tems left";
+    }
 }
-
 
 // Update checkbox style
 function updateCheckboxStyle(listItem) {
@@ -167,7 +180,6 @@ function updateCheckboxStyle(listItem) {
     }
     updateNrLeft();
 }
-
 
 
 
