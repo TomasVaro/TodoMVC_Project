@@ -22,14 +22,12 @@
     const checkAllButton = document.querySelector("#check-all");
     checkAllButton.addEventListener("mousedown", () => {
         onCheckAllButtonClick();
-        updateNrLeft();    
     });
 
     // Removes Todo-item
     const checkClearButton = document.querySelector("#clear-button");
     checkClearButton.addEventListener("mousedown", () => {
         onClearButtonClick();
-        updateNrLeft();
     })
 })();
 
@@ -49,6 +47,7 @@ function createNewTodo(text) {
         .addEventListener("click", () => { 
             createdListItem.remove();
             ifToDolistEmpty();
+            updateNrLeft();            
         });
 
     const textbox = createdListItem.querySelector(".todo-textbox");
@@ -139,12 +138,12 @@ function updateNrLeft(){
     const nrLeft = document.querySelector("#nr-left");
     const itemsLeft = document.querySelector("#items-left");
 
-    nrLeft.textContent = todoItemsChecked.length;
+    nrLeft.textContent = todoItemsChecked.length + " i";
     if(todoItemsChecked.length === 0 || todoItemsChecked.length > 1){
-        itemsLeft.textContent = " items left";
+        itemsLeft.textContent = "tems left";
     }
     else{
-        itemsLeft.textContent = " item left";
+        itemsLeft.textContent = "tem left";
     }
 }
 
@@ -162,6 +161,7 @@ function updateCheckboxStyle(listItem) {
         checkbox.classList.remove("checked");
         listItem.querySelector(".todo-label").classList.remove("checked");
     }
+    updateNrLeft();
 }
 
 
