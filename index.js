@@ -80,6 +80,11 @@ function createNewTodo(text) {
             label.hidden = false;
             label.textContent = textbox.value;
             checkboxRound.style.opacity = 1;
+            if(label.textContent === ""){ 
+                createdListItem.remove();
+                ifToDolistEmpty();
+                updateNrLeft();            
+            }
             // localStorage.setItem("labelContent", "label.textContent");
         }
     });
@@ -148,8 +153,7 @@ function updateNrLeft(){
 }
 
 
-
-
+// Update checkbox style
 function updateCheckboxStyle(listItem) {
     // Get child elements.
     const checkbox = listItem.querySelector(".checkbox-round");
