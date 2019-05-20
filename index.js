@@ -7,9 +7,8 @@
 
     newTodoForm.onsubmit = event => event.preventDefault();
 
-    // Checks for press on enter on adding new Todo-textbox.
+    // Checks for press on Enter (keyCode = 13) on adding new Todo-textbox.
     newTodoForm.addEventListener("keydown", (event) => {
-        // "Enter = 13"
         if (event.keyCode === 13) {
             // Checks the input for empty string or only white spaces.
             if (textbox.value.replace(/\s/g, '').length) {
@@ -18,15 +17,10 @@
                 section.classList.remove("hidden");
                 checkAll.classList.remove("hidden");
 
-                // Checks if Completed-button is checked and if Todo-items are checked - then hide new Todo-items
-                if(document.querySelector("#completed").checked === true){
-                    const todoItems = Array.from(document.querySelectorAll(".todo-item:not(.todo-item-blueprint)"));
-                    for (let i = 0; i < todoItems.length; i++) {
-                        if (todoItems[i].querySelector(".checkbox-round input").checked === true) {
-                            onCompletedButtonClick();
-                        }
-                    }
-                }                
+                // Hides new Todo-items if Completed-button is checked.
+                if (document.querySelector("#completed").checked === true) {
+                    onCompletedButtonClick();
+                }
             }
         }
     });
@@ -35,17 +29,6 @@
     const checkAllButton = document.querySelector("#check-all");
     checkAllButton.addEventListener("mousedown", () => {
         onCheckAllButtonClick();
-
-
-        // if(document.querySelector("#completed").checked === true){
-        //     const todoItems = Array.from(document.querySelectorAll(".todo-item:not(.todo-item-blueprint)"));
-        //     for (let i = 0; i < todoItems.length; i++) {
-        //         if (todoItems[i].querySelector(".checkbox-round input").checked === false) {
-        //             todoItems[i].querySelector(".checkbox-round input").checked = true;
-        //             updateCheckboxStyle(todoItems[i]);
-        //         }
-        //     }
-        // }
     });
 
     // Removes Todo-item
@@ -127,8 +110,6 @@ function createNewTodo(text) {
         }
     });
 
-    // onAllButtonClick();
-    // onCompletedButtonClick();
     const checkbox = checkboxRound.querySelector("input");
     checkbox.addEventListener("change", () => { updateCheckboxStyle(createdListItem); });
     updateNrLeft();
@@ -150,6 +131,15 @@ function onCheckAllButtonClick() {
             updateCheckboxStyle(ti);
         });
     }
+
+    // If filter-button Active or Completed is checked update which Todo-items to see.
+    if (document.querySelector("#active").checked === true) {
+        onActiveButtonClick();
+    }
+    else if(document.querySelector("#completed").checked === true) {
+        onCompletedButtonClick();
+    }
+
     updateNrLeft();
 }
 
