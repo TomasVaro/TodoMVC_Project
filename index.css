@@ -197,7 +197,9 @@ section.hidden {
 }
 
 nav {
+    /* border: 1px solid blue; */
     margin-top: 0.5px;
+    margin-bottom: 4px;
 }
 
 #nr-items-left {
@@ -209,7 +211,8 @@ nav {
 }
 
 #filter-buttons {
-    padding: 4.5px 0 0 26px;
+    /* border: 1px solid red; */
+    padding-top: 4.5px;
     list-style: none;
     display: inline-flex;
 }
@@ -244,7 +247,7 @@ nav {
 }
 
 #clear-button {
-    padding: 5px 14px;
+    padding: 5px 7px 0 0;
     list-style: none;
     display: inline-flex;
 }

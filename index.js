@@ -150,11 +150,11 @@ function updateNrLeft(){
     // Hide/show "Clear completed" button.
     if(todoItemsChecked.length === 0) {
         const checkClearButton = document.querySelector("#clear-button");
-        checkClearButton.style.visibility = "hidden";
+        checkClearButton.style.display = "none";
     }
     else{
         const checkClearButton = document.querySelector("#clear-button");
-        checkClearButton.style.visibility = "visible";
+        checkClearButton.style.display = "flex";
     }
 
     nrLeft.textContent = todoItemsUnChecked.length + " i";
