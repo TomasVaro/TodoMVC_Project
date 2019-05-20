@@ -6,8 +6,9 @@
     const checkAll = document.querySelector("#check-all");
 
     newTodoForm.onsubmit = event => event.preventDefault();
+
+    // Checks for press on Enter (keyCode = 13) on adding new Todo-textbox.
     newTodoForm.addEventListener("keydown", (event) => {
-        // "Enter = 13"
         if (event.keyCode === 13) {
             // Checks the input for empty string or only white spaces.
             if (textbox.value.replace(/\s/g, '').length) {
@@ -15,11 +16,16 @@
                 newTodoForm.reset();
                 section.classList.remove("hidden");
                 checkAll.classList.remove("hidden");
+
+                // Hides new Todo-items if Completed-button is checked.
+                if (document.querySelector("#completed").checked === true) {
+                    onCompletedButtonClick();
+                }
             }
         }
     });
 
-    // Checks or unchecks checksboxes
+    // Checks or unchecks all checksboxes
     const checkAllButton = document.querySelector("#check-all");
     checkAllButton.addEventListener("mousedown", () => {
         onCheckAllButtonClick();
@@ -49,6 +55,20 @@
     radios.forEach(r => r.addEventListener("change", () => {
         window.location = "#/" + r.value;
     }));
+
+    // Shows Todo-items depending on which filter-button is active
+    let filterButton = document.querySelector("#all");
+    filterButton.addEventListener("click", () => {
+        onAllButtonClick();
+    });
+    filterButton = document.querySelector("#active");
+    filterButton.addEventListener("click", () => {
+        onActiveButtonClick();
+    });
+    filterButton = document.querySelector("#completed");
+    filterButton.addEventListener("click", () => {
+        onCompletedButtonClick();
+    });
 })();
 
 // Creates a new todo list item element.
@@ -62,7 +82,7 @@ function createNewTodo(text) {
     // Append blueprint to list and return the element that was just created.
     const createdListItem = todoList.appendChild(blueprint);
 
-    // Remove self on click.
+    // Remove Todo-item on remove-button click.
     createdListItem.querySelector(".todo-button-remove")
         .addEventListener("click", () => {
             createdListItem.remove();
@@ -100,7 +120,7 @@ function createNewTodo(text) {
             label.hidden = false;
             label.textContent = textbox.value;
             checkboxRound.style.opacity = 1;
-            if(label.textContent === ""){
+            if (label.textContent === "") {
                 createdListItem.remove();
                 ifToDolistEmpty();
                 updateNrLeft();
@@ -115,7 +135,7 @@ function createNewTodo(text) {
 }
 
 // Checks/unchecks all items in Todo-list
-function onCheckAllButtonClick(){
+function onCheckAllButtonClick() {
     const todoItems = Array.from(document.querySelectorAll(".todo-item:not(.todo-item-blueprint)"));
     const allChecked = todoItems.every(ti => ti.querySelector(".checkbox-round input").checked === true);
 
@@ -130,11 +150,20 @@ function onCheckAllButtonClick(){
             updateCheckboxStyle(ti);
         });
     }
+
+    // If filter-button Active or Completed is checked update which Todo-items to see.
+    if (document.querySelector("#active").checked === true) {
+        onActiveButtonClick();
+    }
+    else if(document.querySelector("#completed").checked === true) {
+        onCompletedButtonClick();
+    }
+
     updateNrLeft();
 }
 
 // Removes all checked Todo-items
-function onClearButtonClick(){
+function onClearButtonClick() {
     const todoItemsChecked = Array.from(document.querySelectorAll(".todo-item:not(.todo-item-blueprint)"))
         .filter(ti => ti.querySelector(".checkbox-round input").checked === true);
     todoItemsChecked.forEach(ti => ti.remove());
@@ -143,21 +172,21 @@ function onClearButtonClick(){
 }
 
 // Removes bottom section and "check-all button".
-function ifToDolistEmpty(){
+function ifToDolistEmpty() {
     const todoItems = Array.from(document.querySelectorAll(".todo-item:not(.todo-item-blueprint)"));
     // const todoItemsChecked = Array.from(document.querySelectorAll(".todo-item:not(.todo-item-blueprint)"))
     //     .filter(ti => ti.querySelector(".checkbox-round input").checked === true);
     const section = document.querySelector("section");
     const checkAll = document.querySelector("#check-all");
 
-    if(todoItems.length === 0) {
+    if (todoItems.length === 0) {
         section.classList.add("hidden");
         checkAll.classList.add("hidden");
     }
 }
 
 // Updates number of "items left" Todo.
-function updateNrLeft(){
+function updateNrLeft() {
     const todoItemsUnChecked = Array.from(document.querySelectorAll(".todo-item:not(.todo-item-blueprint)"))
         .filter(ti => ti.querySelector(".checkbox-round input").checked === false);
     const todoItemsChecked = Array.from(document.querySelectorAll(".todo-item:not(.todo-item-blueprint)"))
@@ -167,21 +196,21 @@ function updateNrLeft(){
 
 
     // Hide/show "Clear completed" button.
-    if(todoItemsChecked.length === 0) {
+    if (todoItemsChecked.length === 0) {
         const checkClearButton = document.querySelector("#clear-button");
         checkClearButton.style.display = "none";
     }
-    else{
+    else {
         const checkClearButton = document.querySelector("#clear-button");
         checkClearButton.style.display = "flex";
     }
 
-    nrLeft.textContent = todoItemsUnChecked.length + " i";
-    if(todoItemsUnChecked.length === 1) {
-        itemsLeft.textContent = "tem left";
+    nrLeft.textContent = todoItemsUnChecked.length;
+    if (todoItemsUnChecked.length === 1) {
+        itemsLeft.textContent = "item left";
     }
-    else{
-        itemsLeft.textContent = "tems left";
+    else {
+        itemsLeft.textContent = "items left";
     }
 }
 
@@ -199,6 +228,38 @@ function updateCheckboxStyle(listItem) {
     }
     updateNrLeft();
 }
+
+// On "Filter-buttons click"
+function onAllButtonClick() {
+    const todoItems = Array.from(document.querySelectorAll(".todo-item:not(.todo-item-blueprint)"));
+
+    for (i = 0; i < todoItems.length; i++) {
+        todoItems[i].style.display = "flex";
+    }
+}
+function onActiveButtonClick() {
+    const todoItems = Array.from(document.querySelectorAll(".todo-item:not(.todo-item-blueprint)"));
+    onAllButtonClick()
+
+    for (i = 0; i < todoItems.length; i++) {
+        if (todoItems[i].querySelector(".checkbox-round input").checked === true) {
+            todoItems[i].style.display = "none";
+        }
+    }
+}
+function onCompletedButtonClick() {
+    const todoItems = Array.from(document.querySelectorAll(".todo-item:not(.todo-item-blueprint)"));
+    onAllButtonClick()
+
+    for (i = 0; i < todoItems.length; i++) {
+        if (todoItems[i].querySelector(".checkbox-round input").checked === false) {
+            todoItems[i].style.display = "none";
+        }
+    }
+}
+
+
+
 
 // Check browser support for WebStorage
 // if (typeof(Storage) !== "undefined") {

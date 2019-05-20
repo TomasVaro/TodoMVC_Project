@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="index.js" defer></script>
     <link rel="stylesheet" href="index.css">
-    <link rel="stylesheet" href="index_mobile.css" media="screen and (max-width: 480px)">
+    <link rel="stylesheet" href="index_mobile.css" media="screen and (max-width: 500px)">
 </head>
 
 <body>
@@ -18,7 +18,7 @@
     <main>
         <form id="new-todo-form">
             <input id="new-todo" type="text" placeholder="What needs to be done?">
-            <button class="hidden" id="check-all">❯</button>
+            <button class="hidden" id="check-all" aria-label="check all">❯</button>
         </form>
         <div id="todo-and-items-left">
             <ul id="todo-list">
@@ -30,7 +30,7 @@
                     <input class="todo-textbox" type="text" value="Do something" hidden>
                     <label class="todo-label"></label>
                     <div>
-                        <button aria-label="remove" class="todo-button-remove">
+                        <button class="todo-button-remove" aria-label="remove">
                             <p aria-hidden="true">+</p>
                             <!-- <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 512 512">
                             <g id="icomoon-ignore"></g>
@@ -48,8 +48,9 @@
             </ul>
             <section class="hidden">
                 <div id="nr-items-left">
-                    <p id="nr-left">1</p>
-                    <p id="items-left">&nbsp;item&nbsp;left</p>
+                    <p id="nr-left"></p>
+                    <p>&nbsp;</p>
+                    <p id="items-left"></p>
                 </div>
                 <nav>
                     <ul id="filter-buttons">
