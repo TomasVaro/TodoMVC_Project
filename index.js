@@ -14,7 +14,7 @@
                 createNewTodo(textbox.value.trim());
                 newTodoForm.reset();
                 section.classList.remove("hidden");
-                checkAll.classList.remove("hidden");    
+                checkAll.classList.remove("hidden");
             }
         }
     });
@@ -29,7 +29,26 @@
     const checkClearButton = document.querySelector("#clear-button");
     checkClearButton.addEventListener("mousedown", () => {
         onClearButtonClick();
-    })
+    });
+
+    window.addEventListener("hashchange", () => {
+        switch (window.location.hash) {
+            case "#/all":
+                document.querySelector("#filter-buttons input#all").checked = true;
+                break;
+            case "#/active":
+                document.querySelector("#filter-buttons input#active").checked = true;
+                break;
+            case "#/completed":
+                document.querySelector("#filter-buttons input#completed").checked = true;
+                break;
+        }
+    });
+
+    const radios = section.querySelectorAll("#filter-buttons li input[type=\"radio\"]");
+    radios.forEach(r => r.addEventListener("change", () => {
+        window.location = "#/" + r.value;
+    }));
 })();
 
 // Creates a new todo list item element.
@@ -45,7 +64,7 @@ function createNewTodo(text) {
 
     // Remove self on click.
     createdListItem.querySelector(".todo-button-remove")
-        .addEventListener("click", () => { 
+        .addEventListener("click", () => {
             createdListItem.remove();
             ifToDolistEmpty();
             updateNrLeft();
@@ -65,7 +84,7 @@ function createNewTodo(text) {
         textbox.hidden = false;
         checkboxRound.style.opacity = 0;
         textbox.focus();
-    })
+    });
 
     // Switch textbox to label on blur.
     textbox.addEventListener("blur", () => {
@@ -81,10 +100,10 @@ function createNewTodo(text) {
             label.hidden = false;
             label.textContent = textbox.value;
             checkboxRound.style.opacity = 1;
-            if(label.textContent === ""){ 
+            if(label.textContent === ""){
                 createdListItem.remove();
                 ifToDolistEmpty();
-                updateNrLeft();            
+                updateNrLeft();
             }
             // localStorage.setItem("labelContent", "label.textContent");
         }
@@ -146,7 +165,7 @@ function updateNrLeft(){
     const nrLeft = document.querySelector("#nr-left");
     const itemsLeft = document.querySelector("#items-left");
 
-    
+
     // Hide/show "Clear completed" button.
     if(todoItemsChecked.length === 0) {
         const checkClearButton = document.querySelector("#clear-button");
@@ -180,8 +199,6 @@ function updateCheckboxStyle(listItem) {
     }
     updateNrLeft();
 }
-
-
 
 // Check browser support for WebStorage
 // if (typeof(Storage) !== "undefined") {

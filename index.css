@@ -29,7 +29,7 @@ main {
                 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-form {
+form#new-todo-form {
     display: inline-flex;
     width: 100%;
     position: relative;
@@ -182,7 +182,7 @@ input#new-todo::placeholder{
 }
 
 section {
-    display: grid;    
+    display: grid;
     grid-template-columns: 1fr 3fr 1fr;
     padding: .3em 0 .33em 0;
     box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2),
