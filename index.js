@@ -81,10 +81,10 @@ function createNewTodo(text) {
 
     // Append blueprint to list and return the element that was just created.
     const createdListItem = todoList.appendChild(blueprint);
+    const todoButtonRemove = createdListItem.querySelector(".todo-button-remove");
 
     // Remove Todo-item on remove-button click.
-    createdListItem.querySelector(".todo-button-remove")
-        .addEventListener("click", () => {
+    createdListItem.querySelector(".todo-button-remove").addEventListener("click", () => {
             createdListItem.remove();
             ifToDolistEmpty();
             updateNrLeft();
@@ -93,6 +93,7 @@ function createNewTodo(text) {
     const textbox = createdListItem.querySelector(".todo-textbox");
     const label = createdListItem.querySelector(".todo-label");
     const checkboxRound = createdListItem.querySelector(".checkbox-round");
+    const checkboxRoundInput = checkboxRound.querySelector("input");
 
     // Label and textbox should display value of text.
     label.textContent = text;
@@ -100,15 +101,19 @@ function createNewTodo(text) {
 
     // Switch label to textbox.
     label.addEventListener("dblclick", () => {
+        todoButtonRemove.style.visibility = "hidden";
         label.hidden = true;
         textbox.hidden = false;
         checkboxRound.style.opacity = 0;
         checkboxRound.querySelector("input").disabled = true;
+
+        // Moves cursor to end of text in textbox
+        textbox.selectionStart = textbox.selectionEnd = textbox.value.length;
         textbox.focus();
     });
 
     // Switch textbox to label on blur.
-    textbox.addEventListener("blur", () => {
+    textbox.addEventListener("focusout", () => {
         textbox.hidden = true;
         label.hidden = false;
         checkboxRound.style.opacity = 1;
@@ -119,6 +124,8 @@ function createNewTodo(text) {
         setTimeout(() => {
             checkboxRound.querySelector("input").disabled = false;
         }, 500);
+        const todoButtonRemove = createdListItem.querySelector(".todo-button-remove");
+        todoButtonRemove.style.visibility = "visible";
     });
 
     // Switch textbox to label on enter.

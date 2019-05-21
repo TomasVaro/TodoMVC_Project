@@ -12,7 +12,7 @@ Er applikation ska bete sig som exemplet på TodoMVC-hemsidan, inklusive följan
 - [x] Applikationen ska se ut som exemplet på TodoMVC-hemsidan, med tillägget att den också ska vara responsiv och således fungera bra även på exempelvis mobiltelefoner.
 
 ### Krav för VG
-- [ ] URL-hantering (att knapparna "All", "Active" och "Completed" ändrar på URL:en). Använd hashchange till detta.
+- [x] URL-hantering (att knapparna "All", "Active" och "Completed" ändrar på URL:en). Använd hashchange till detta.
 - [ ] Data som sparas mellan körningar med hjälp av localStorage.
 - [x] Redigering av föremål genom dubbelklick.
 - [x] Den visuella "pappershög"-effekten under listan med föremål.
