@@ -147,6 +147,7 @@ input#new-todo::placeholder{
     border: 1px solid #999;
     width: 100%;
 }
+.todo-textbox::-ms-clear { display: none; width: 0; height: 0;}
 
 .todo-item input[type="checkbox"] {
     display: none;
@@ -156,8 +157,8 @@ input#new-todo::placeholder{
     position: relative;
     border: .5px solid #e6e6e6;
     border-radius: 100%;
-    width: 35px;
-    height: 35px;
+    width: 32px;
+    height: 32px;
     align-self: center;
     margin: 0 10px 0 10px;
 }
@@ -171,13 +172,14 @@ input#new-todo::placeholder{
 
 .checkmark {
     position: absolute;
-    top: 10px;
+    top: 15px;
+    left: 8px;
     width: 10px;
     height: 18px;
     border-bottom: 2px solid #5dc2af;
     border-right: 2px solid #5dc2af;
     -webkit-transform: rotate(45deg);
-    transform: rotate(45deg) translate(-50%, 0);
+    transform: rotate(45deg) translate(-50%, -50%);
     opacity: 0;
 }
 

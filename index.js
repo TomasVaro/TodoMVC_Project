@@ -19,7 +19,7 @@
 
                 // Hides new Todo-items if Completed-button is checked.
                 if (document.querySelector("#completed").checked === true) {
-                    onCompletedButtonClick();
+                    onCompletedRadioClick();
                 }
             }
         }
@@ -59,15 +59,15 @@
     // Shows Todo-items depending on which filter-button is active
     let filterButton = document.querySelector("#all");
     filterButton.addEventListener("click", () => {
-        onAllButtonClick();
+        onAllRadioClick();
     });
     filterButton = document.querySelector("#active");
     filterButton.addEventListener("click", () => {
-        onActiveButtonClick();
+        onActiveRadioClick();
     });
     filterButton = document.querySelector("#completed");
     filterButton.addEventListener("click", () => {
-        onCompletedButtonClick();
+        onCompletedRadioClick();
     });
 })();
 
@@ -103,6 +103,7 @@ function createNewTodo(text) {
         label.hidden = true;
         textbox.hidden = false;
         checkboxRound.style.opacity = 0;
+        checkboxRound.querySelector("input").disabled = true;
         textbox.focus();
     });
 
@@ -111,6 +112,13 @@ function createNewTodo(text) {
         textbox.hidden = true;
         label.hidden = false;
         checkboxRound.style.opacity = 1;
+
+        // Wait a while before setting enabling input, preventing
+        // from it checking when user clicks on it while element on
+        // editing mode.
+        setTimeout(() => {
+            checkboxRound.querySelector("input").disabled = false;
+        }, 500);
     });
 
     // Switch textbox to label on enter.
@@ -153,10 +161,10 @@ function onCheckAllButtonClick() {
 
     // If filter-button Active or Completed is checked update which Todo-items to see.
     if (document.querySelector("#active").checked === true) {
-        onActiveButtonClick();
+        onActiveRadioClick();
     }
     else if(document.querySelector("#completed").checked === true) {
-        onCompletedButtonClick();
+        onCompletedRadioClick();
     }
 
     updateNrLeft();
@@ -230,16 +238,16 @@ function updateCheckboxStyle(listItem) {
 }
 
 // On "Filter-buttons click"
-function onAllButtonClick() {
+function onAllRadioClick() {
     const todoItems = Array.from(document.querySelectorAll(".todo-item:not(.todo-item-blueprint)"));
 
     for (i = 0; i < todoItems.length; i++) {
         todoItems[i].style.display = "flex";
     }
 }
-function onActiveButtonClick() {
+function onActiveRadioClick() {
     const todoItems = Array.from(document.querySelectorAll(".todo-item:not(.todo-item-blueprint)"));
-    onAllButtonClick()
+    onAllRadioClick()
 
     for (i = 0; i < todoItems.length; i++) {
         if (todoItems[i].querySelector(".checkbox-round input").checked === true) {
@@ -247,9 +255,9 @@ function onActiveButtonClick() {
         }
     }
 }
-function onCompletedButtonClick() {
+function onCompletedRadioClick() {
     const todoItems = Array.from(document.querySelectorAll(".todo-item:not(.todo-item-blueprint)"));
-    onAllButtonClick()
+    onAllRadioClick()
 
     for (i = 0; i < todoItems.length; i++) {
         if (todoItems[i].querySelector(".checkbox-round input").checked === false) {
