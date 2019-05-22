@@ -1,9 +1,15 @@
+let itemsObjectArray;
+
 // Run immediately on page load.
 (function startup() {
     const newTodoForm = document.querySelector("#new-todo-form");
     const textbox = newTodoForm.querySelector("#new-todo");
     const section = document.querySelector("section");
     const checkAll = document.querySelector("#check-all");
+
+    // Creates LoacalStorage function
+    itemsObjectArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : [];
+    // localStorage.setItem("items", JSON.stringify(itemsObjectArray));
 
     newTodoForm.onsubmit = event => event.preventDefault();
 
@@ -12,6 +18,10 @@
         if (event.keyCode === 13) {
             // Checks the input for empty string or only white spaces.
             if (textbox.value.replace(/\s/g, '').length) {
+                // Adds new input to LoacStorage.
+                itemsObjectArray.push(textbox.value.trim())
+                localStorage.setItem('items', JSON.stringify(itemsObjectArray))
+
                 createNewTodo(textbox.value.trim());
                 newTodoForm.reset();
                 section.classList.remove("hidden");
@@ -25,18 +35,26 @@
         }
     });
 
+    // Loops through LocalStorage-content and adds it to Todo-items
+    itemsObjectArray.forEach(item => {
+        createNewTodo(item);        
+        section.classList.remove("hidden");
+        checkAll.classList.remove("hidden");
+      })
+
     // Checks or unchecks all checksboxes
     const checkAllButton = document.querySelector("#check-all");
     checkAllButton.addEventListener("mousedown", () => {
         onCheckAllButtonClick();
     });
 
-    // Removes Todo-item
+    // Removes all Todo-items
     const checkClearButton = document.querySelector("#clear-button");
     checkClearButton.addEventListener("mousedown", () => {
         onClearButtonClick();
     });
 
+    // Change URL on Filter-radiobutton push
     window.addEventListener("hashchange", () => {
         switch (window.location.hash) {
             case "#/all":
@@ -85,10 +103,17 @@ function createNewTodo(text) {
 
     // Remove Todo-item on remove-button click.
     createdListItem.querySelector(".todo-button-remove").addEventListener("click", () => {
-            createdListItem.remove();
-            ifToDolistEmpty();
-            updateNrLeft();
-        });
+        // Remove Todo-item from LocalStorage
+        for(let i = 0; i < itemsObjectArray.length; i++){
+            if(itemsObjectArray[i] === createdListItem.querySelector(".todo-label").textContent){
+                itemsObjectArray.splice(i, 1);
+                localStorage.setItem("items", JSON.stringify(itemsObjectArray));
+            }
+        }
+        createdListItem.remove();
+        ifToDolistEmpty();
+        updateNrLeft();
+    });
 
     const textbox = createdListItem.querySelector(".todo-textbox");
     const label = createdListItem.querySelector(".todo-label");
@@ -140,7 +165,6 @@ function createNewTodo(text) {
                 ifToDolistEmpty();
                 updateNrLeft();
             }
-            // localStorage.setItem("labelContent", "label.textContent");
         }
     });
 
@@ -148,6 +172,29 @@ function createNewTodo(text) {
     checkbox.addEventListener("change", () => { updateCheckboxStyle(createdListItem); });
     updateNrLeft();
 }
+
+// Saves changes to to local storage.
+function updateLocalStorage(){
+    const todoItems = Array.from(document.querySelectorAll(".todo-item"));
+    const todoItemObjects = todoItems.map(ti => new Object({
+        state: ti.querySelector(".checkbox-round input").checked ? "completed" : "active",
+        text: ti.querySelector(".todo-label").textContent
+    }));
+    localStorage.setItem("items", JSON.stringify(todoItemObjects));
+    itemsObjectArray = todoItemObjects;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Checks/unchecks all items in Todo-list
 function onCheckAllButtonClick() {
@@ -173,7 +220,6 @@ function onCheckAllButtonClick() {
     else if(document.querySelector("#completed").checked === true) {
         onCompletedRadioClick();
     }
-
     updateNrLeft();
 }
 
@@ -184,13 +230,12 @@ function onClearButtonClick() {
     todoItemsChecked.forEach(ti => ti.remove());
     ifToDolistEmpty();
     updateNrLeft();
+    // localStorage.clear();
 }
 
-// Removes bottom section and "check-all button".
+// Removes bottom section and "check-all button" if Todo-list is empty.
 function ifToDolistEmpty() {
     const todoItems = Array.from(document.querySelectorAll(".todo-item:not(.todo-item-blueprint)"));
-    // const todoItemsChecked = Array.from(document.querySelectorAll(".todo-item:not(.todo-item-blueprint)"))
-    //     .filter(ti => ti.querySelector(".checkbox-round input").checked === true);
     const section = document.querySelector("section");
     const checkAll = document.querySelector("#check-all");
 
@@ -272,16 +317,3 @@ function onCompletedRadioClick() {
         }
     }
 }
-
-
-
-
-// Check browser support for WebStorage
-// if (typeof(Storage) !== "undefined") {
-//     // Store
-//     localStorage.setItem("lastname", "Smith");
-//     // Retrieve
-//     document.getElementById("result").innerHTML = localStorage.getItem("lastname");
-// } else {
-//     document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
-// }
