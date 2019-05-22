@@ -1,5 +1,5 @@
 // Run immediately on page load.
-(function startup() {
+(function start() {
     const newTodoForm = document.querySelector("#new-todo-form");
     const textbox = newTodoForm.querySelector("#new-todo");
     const section = document.querySelector("section");
@@ -12,7 +12,7 @@
         if (event.keyCode === 13) {
             // Checks the input for empty string or only white spaces.
             if (textbox.value.replace(/\s/g, '').length) {
-                // Adds new input to LoacStorage.
+                // Adds new todo to localStorage.
                 createNewTodo(textbox.value.trim());
                 newTodoForm.reset();
                 section.classList.remove("hidden");
@@ -28,6 +28,7 @@
         }
     });
 
+    // Load todos from localStorage and create todo-item element.
     loadTodos().forEach(item => {
         const todo = createNewTodo(item.text, item.state);
         updateCheckboxStyle(todo);
@@ -70,16 +71,16 @@
     }));
 
     // Shows Todo-items depending on which filter-button is active
-    let filterButton = document.querySelector("#all");
-    filterButton.addEventListener("click", () => {
+    let filterButtons = document.querySelector("#all");
+    filterButtons.addEventListener("click", () => {
         onAllRadioClick();
     });
-    filterButton = document.querySelector("#active");
-    filterButton.addEventListener("click", () => {
+    filterButtons = document.querySelector("#active");
+    filterButtons.addEventListener("click", () => {
         onActiveRadioClick();
     });
-    filterButton = document.querySelector("#completed");
-    filterButton.addEventListener("click", () => {
+    filterButtons = document.querySelector("#completed");
+    filterButtons.addEventListener("click", () => {
         onCompletedRadioClick();
     });
 })();
@@ -126,13 +127,13 @@ function createNewTodo(text, state = "active") {
     });
 
     // Switch textbox to label on blur.
-    textbox.addEventListener("focusout", () => {
+    textbox.addEventListener("blur", () => {
         textbox.hidden = true;
         label.hidden = false;
         checkboxRound.style.opacity = 1;
 
         // Wait a while before setting enabling input, preventing
-        // from it checking when user clicks on it while element on
+        // it from checking when user clicks on it while element on
         // editing mode.
         setTimeout(() => {
             checkboxRound.querySelector("input").disabled = false;
@@ -176,10 +177,12 @@ function createNewTodo(text, state = "active") {
     });
     updateNrLeft();
 
+    // Return element for easier reference.
     return createdListItem;
 }
 
-// Saves changes to to local storage.
+// Saves changes to to localStorage. This function "looks" at the GUI and updates localStorage
+// based on what it "sees".
 function updateLocalStorage(){
     const todoItems = Array.from(document.querySelectorAll(".todo-item:not(.todo-item-blueprint)"));
     const todoItemObjects = todoItems.map(ti => new Object({
@@ -189,6 +192,7 @@ function updateLocalStorage(){
     localStorage.setItem("items", JSON.stringify(todoItemObjects));
 }
 
+// Loads todos from localStorage and return as objects.
 function loadTodos() {
     return JSON.parse(localStorage.getItem("items"));
 }
@@ -227,7 +231,6 @@ function onClearButtonClick() {
     todoItemsChecked.forEach(ti => ti.remove());
     ifToDolistEmpty();
     updateNrLeft();
-    // localStorage.clear();
 }
 
 // Removes bottom section and "check-all button" if Todo-list is empty.
@@ -294,6 +297,7 @@ function onAllRadioClick() {
         todoItems[i].style.display = "flex";
     }
 }
+
 function onActiveRadioClick() {
     const todoItems = Array.from(document.querySelectorAll(".todo-item:not(.todo-item-blueprint)"));
     onAllRadioClick()
@@ -304,6 +308,7 @@ function onActiveRadioClick() {
         }
     }
 }
+
 function onCompletedRadioClick() {
     const todoItems = Array.from(document.querySelectorAll(".todo-item:not(.todo-item-blueprint)"));
     onAllRadioClick()
