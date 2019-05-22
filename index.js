@@ -1,15 +1,9 @@
-let itemsObjectArray;
-
 // Run immediately on page load.
-(function startup() {
+(function start() {
     const newTodoForm = document.querySelector("#new-todo-form");
     const textbox = newTodoForm.querySelector("#new-todo");
     const section = document.querySelector("section");
     const checkAll = document.querySelector("#check-all");
-
-    // Loads from LoacalStorage.
-    itemsObjectArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : [];
-    // localStorage.setItem("items", JSON.stringify(itemsObjectArray));
 
     newTodoForm.onsubmit = event => event.preventDefault();
 
@@ -18,10 +12,7 @@ let itemsObjectArray;
         if (event.keyCode === 13) {
             // Checks the input for empty string or only white spaces.
             if (textbox.value.replace(/\s/g, '').length) {
-                // Adds new input to LoacStorage.
-                itemsObjectArray.push(textbox.value.trim());
-                localStorage.setItem('items', JSON.stringify(itemsObjectArray));
-
+                // Adds new todo to localStorage.
                 createNewTodo(textbox.value.trim());
                 newTodoForm.reset();
                 section.classList.remove("hidden");
@@ -32,26 +23,31 @@ let itemsObjectArray;
                     onCompletedRadioClick();
                 }
             }
+
+            updateLocalStorage();
         }
     });
 
-    // Loops through LocalStorage-content and adds it to Todo-items
-    itemsObjectArray.forEach(item => {
-        createNewTodo(item);        
+    // Load todos from localStorage and create todo-item element.
+    loadTodos().forEach(item => {
+        const todo = createNewTodo(item.text, item.state);
+        updateCheckboxStyle(todo);
         section.classList.remove("hidden");
         checkAll.classList.remove("hidden");
-      })
+    });
 
     // Checks or unchecks all checksboxes
     const checkAllButton = document.querySelector("#check-all");
     checkAllButton.addEventListener("mousedown", () => {
         onCheckAllButtonClick();
+        updateLocalStorage();
     });
 
     // Removes all Todo-items
     const checkClearButton = document.querySelector("#clear-button");
     checkClearButton.addEventListener("mousedown", () => {
         onClearButtonClick();
+        updateLocalStorage();
     });
 
     // Change URL on Filter-radiobutton push
@@ -75,22 +71,22 @@ let itemsObjectArray;
     }));
 
     // Shows Todo-items depending on which filter-button is active
-    let filterButton = document.querySelector("#all");
-    filterButton.addEventListener("click", () => {
+    let filterButtons = document.querySelector("#all");
+    filterButtons.addEventListener("click", () => {
         onAllRadioClick();
     });
-    filterButton = document.querySelector("#active");
-    filterButton.addEventListener("click", () => {
+    filterButtons = document.querySelector("#active");
+    filterButtons.addEventListener("click", () => {
         onActiveRadioClick();
     });
-    filterButton = document.querySelector("#completed");
-    filterButton.addEventListener("click", () => {
+    filterButtons = document.querySelector("#completed");
+    filterButtons.addEventListener("click", () => {
         onCompletedRadioClick();
     });
 })();
 
 // Creates a new todo list item element.
-function createNewTodo(text) {
+function createNewTodo(text, state = "active") {
     const todoList = document.querySelector("#todo-list");
     const blueprint = document.querySelector(".todo-item-blueprint").cloneNode(true);
 
@@ -103,22 +99,15 @@ function createNewTodo(text) {
 
     // Remove Todo-item on remove-button click.
     createdListItem.querySelector(".todo-button-remove").addEventListener("click", () => {
-        // Remove Todo-item from LocalStorage
-        for(let i = 0; i < itemsObjectArray.length; i++){
-            if(itemsObjectArray[i] === createdListItem.querySelector(".todo-label").textContent){
-                itemsObjectArray.splice(i, 1);
-                localStorage.setItem("items", JSON.stringify(itemsObjectArray));
-            }
-        }
         createdListItem.remove();
         ifToDolistEmpty();
         updateNrLeft();
+        updateLocalStorage();
     });
 
     const textbox = createdListItem.querySelector(".todo-textbox");
     const label = createdListItem.querySelector(".todo-label");
     const checkboxRound = createdListItem.querySelector(".checkbox-round");
-    const checkboxRoundInput = checkboxRound.querySelector("input");
 
     // Label and textbox should display value of text.
     label.textContent = text;
@@ -138,18 +127,21 @@ function createNewTodo(text) {
     });
 
     // Switch textbox to label on blur.
-    textbox.addEventListener("focusout", () => {
+    textbox.addEventListener("blur", () => {
         textbox.hidden = true;
         label.hidden = false;
         checkboxRound.style.opacity = 1;
 
-        // Wait a while before setting enabling input, preventing it from being checked when user 
-        // clicks on it while element in editing mode.
+        // Wait a while before setting enabling input, preventing
+        // it from checking when user clicks on it while element on
+        // editing mode.
         setTimeout(() => {
             checkboxRound.querySelector("input").disabled = false;
         }, 500);
         const todoButtonRemove = createdListItem.querySelector(".todo-button-remove");
         todoButtonRemove.style.visibility = "visible";
+
+        updateLocalStorage();
     });
 
     // Switch textbox to label on enter.
@@ -164,36 +156,46 @@ function createNewTodo(text) {
                 ifToDolistEmpty();
                 updateNrLeft();
             }
+
+            updateLocalStorage();
         }
     });
 
     const checkbox = checkboxRound.querySelector("input");
-    checkbox.addEventListener("change", () => { updateCheckboxStyle(createdListItem); });
+    switch (state) {
+        case "completed":
+            checkbox.checked = true;
+            break;
+        case "active":
+            checkbox.checked = false;
+            break;
+    }
+    checkbox.addEventListener("change", () => { 
+        updateCheckboxStyle(createdListItem);
+
+        updateLocalStorage();
+    });
     updateNrLeft();
+
+    // Return element for easier reference.
+    return createdListItem;
 }
 
-// Saves changes to local storage.
+// Saves changes to to localStorage. This function "looks" at the GUI and updates localStorage
+// based on what it "sees".
 function updateLocalStorage(){
-    const todoItems = Array.from(document.querySelectorAll(".todo-item"));
+    const todoItems = Array.from(document.querySelectorAll(".todo-item:not(.todo-item-blueprint)"));
     const todoItemObjects = todoItems.map(ti => new Object({
-        state: ti.querySelector(".checkbox-round input").checked ? "completed" : "active",
-        text: ti.querySelector(".todo-label").textContent
+        text: ti.querySelector(".todo-label").textContent,
+        state: ti.querySelector(".checkbox-round input").checked ? "completed" : "active"
     }));
     localStorage.setItem("items", JSON.stringify(todoItemObjects));
-    itemsObjectArray = todoItemObjects;
 }
 
-
-
-
-
-
-
-
-
-
-
-
+// Loads todos from localStorage and return as objects.
+function loadTodos() {
+    return JSON.parse(localStorage.getItem("items"));
+}
 
 // Checks/unchecks all items in Todo-list
 function onCheckAllButtonClick() {
@@ -229,7 +231,6 @@ function onClearButtonClick() {
     todoItemsChecked.forEach(ti => ti.remove());
     ifToDolistEmpty();
     updateNrLeft();
-    // localStorage.clear();
 }
 
 // Removes bottom section and "check-all button" if Todo-list is empty.
@@ -296,6 +297,7 @@ function onAllRadioClick() {
         todoItems[i].style.display = "flex";
     }
 }
+
 function onActiveRadioClick() {
     const todoItems = Array.from(document.querySelectorAll(".todo-item:not(.todo-item-blueprint)"));
     onAllRadioClick()
@@ -306,6 +308,7 @@ function onActiveRadioClick() {
         }
     }
 }
+
 function onCompletedRadioClick() {
     const todoItems = Array.from(document.querySelectorAll(".todo-item:not(.todo-item-blueprint)"));
     onAllRadioClick()
