@@ -7,7 +7,7 @@ let itemsObjectArray;
     const section = document.querySelector("section");
     const checkAll = document.querySelector("#check-all");
 
-    // Creates LoacalStorage function
+    // Loads from LoacalStorage.
     itemsObjectArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : [];
     // localStorage.setItem("items", JSON.stringify(itemsObjectArray));
 
@@ -19,8 +19,8 @@ let itemsObjectArray;
             // Checks the input for empty string or only white spaces.
             if (textbox.value.replace(/\s/g, '').length) {
                 // Adds new input to LoacStorage.
-                itemsObjectArray.push(textbox.value.trim())
-                localStorage.setItem('items', JSON.stringify(itemsObjectArray))
+                itemsObjectArray.push(textbox.value.trim());
+                localStorage.setItem('items', JSON.stringify(itemsObjectArray));
 
                 createNewTodo(textbox.value.trim());
                 newTodoForm.reset();
@@ -143,9 +143,8 @@ function createNewTodo(text) {
         label.hidden = false;
         checkboxRound.style.opacity = 1;
 
-        // Wait a while before setting enabling input, preventing
-        // from it checking when user clicks on it while element on
-        // editing mode.
+        // Wait a while before setting enabling input, preventing it from being checked when user 
+        // clicks on it while element in editing mode.
         setTimeout(() => {
             checkboxRound.querySelector("input").disabled = false;
         }, 500);
@@ -173,7 +172,7 @@ function createNewTodo(text) {
     updateNrLeft();
 }
 
-// Saves changes to to local storage.
+// Saves changes to local storage.
 function updateLocalStorage(){
     const todoItems = Array.from(document.querySelectorAll(".todo-item"));
     const todoItemObjects = todoItems.map(ti => new Object({
