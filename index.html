@@ -25,25 +25,25 @@
                 <ul id="todo-list">
                     <!--The blueprint todo is used for cloning-->
                     <li class="todo-item todo-item-blueprint">
-                        <label role="checkbox" class="checkbox-round">
-                            <input type="checkbox" unchecked>
+                        <label class="checkbox-round">
+                            <input type="checkbox">
                             <span class="checkmark"></span>
                         </label>
                         <input class="todo-textbox" type="text" value="Do something" hidden>
                         <label class="todo-label"></label>
                         <div>
-                            <button class="todo-button-remove" aria-label="remove">
+                            <div role="button" class="todo-remove-button" aria-label="remove">
                                 <p aria-hidden="true">+</p>
-                            </button>
+                            </div>
                         </div>
                     </li>
                 </ul>
                 <!--Bottom bar-->
                 <section class="hidden">
                     <div id="nr-items-left">
-                        <p id="nr-left"></p>
+                        <p id="nr-left">0</p>
                         <p>&nbsp;</p>
-                        <p id="items-left"></p>
+                        <p id="items-left">items</p>
                     </div>
                     <nav>
                         <ul id="filter-buttons">
@@ -70,9 +70,9 @@
             </div>
         </main>
         <footer>
-            <p class="footer">Double-click to edit a todo</p>
-            <p class="footer">Written by <a href="www.example.com">Johan W & Tomas V</a></p>
-            <p class="footer">Part of <a href="http://todomvc.com/">TodoMVC</a></p>
+            <p>Double-click to edit a todo</p>
+            <p>Written by <a href="www.example.com">Johan W & Tomas V</a></p>
+            <p>Part of <a href="http://todomvc.com/">TodoMVC</a></p>
         </footer>
     </body>
 

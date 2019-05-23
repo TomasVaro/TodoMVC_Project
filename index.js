@@ -6,13 +6,12 @@
     const checkAll = document.querySelector("#check-all");
 
     newTodoForm.onsubmit = event => event.preventDefault();
-
+    
     // Checks for press on Enter (keyCode = 13) on adding new Todo-textbox.
     newTodoForm.addEventListener("keydown", (event) => {
         if (event.keyCode === 13) {
             // Checks the input for empty string or only white spaces.
             if (textbox.value.replace(/\s/g, '').length) {
-                // Adds new todo to localStorage.
                 createNewTodo(textbox.value.trim());
                 newTodoForm.reset();
                 section.classList.remove("hidden");
@@ -23,18 +22,19 @@
                     onCompletedRadioClick();
                 }
             }
-
             updateLocalStorage();
         }
     });
 
-    // Load todos from localStorage and create todo-item element.
-    loadTodos().forEach(item => {
-        const todo = createNewTodo(item.text, item.state);
-        updateCheckboxStyle(todo);
-        section.classList.remove("hidden");
-        checkAll.classList.remove("hidden");
-    });
+    // Load todos from localStorage and create todo-item elements.
+    if(loadTodos() != null){
+        loadTodos().forEach(item => {
+            const todo = createNewTodo(item.text, item.state);
+            updateCheckboxStyle(todo);
+            section.classList.remove("hidden");
+            checkAll.classList.remove("hidden");
+        });
+    }
 
     // Checks or unchecks all checksboxes
     const checkAllButton = document.querySelector("#check-all");
@@ -43,7 +43,7 @@
         updateLocalStorage();
     });
 
-    // Removes all Todo-items
+    // Removes all completed Todos on "Clear completed"-button click.
     const checkClearButton = document.querySelector("#clear-button");
     checkClearButton.addEventListener("mousedown", () => {
         onClearButtonClick();
@@ -64,7 +64,6 @@
                 break;
         }
     });
-
     const radios = section.querySelectorAll("#filter-buttons li input[type=\"radio\"]");
     radios.forEach(r => r.addEventListener("change", () => {
         window.location = "#/" + r.value;
@@ -83,6 +82,22 @@
     filterButtons.addEventListener("click", () => {
         onCompletedRadioClick();
     });
+
+    // Checks which filter-button is "active" in Local Storage and assigns that state to the buttons.
+    switch (localStorage.getItem("filter")) {
+        case "all":
+            section.querySelector("input#all").checked = true;
+            break;
+        case "active":
+            section.querySelector("input#active").checked = true;
+            break;
+        case "completed":
+            section.querySelector("input#completed").checked = true;
+            break;
+        default:
+            section.querySelector("input#all").checked = true;
+            break;
+    }
 })();
 
 // Creates a new todo list item element.
@@ -95,10 +110,10 @@ function createNewTodo(text, state = "active") {
 
     // Append blueprint to list and return the element that was just created.
     const createdListItem = todoList.appendChild(blueprint);
-    const todoButtonRemove = createdListItem.querySelector(".todo-button-remove");
+    const todoButtonRemove = createdListItem.querySelector(".todo-remove-button");
 
     // Remove Todo-item on remove-button click.
-    createdListItem.querySelector(".todo-button-remove").addEventListener("click", () => {
+    createdListItem.querySelector(".todo-remove-button").addEventListener("click", () => {
         createdListItem.remove();
         ifToDolistEmpty();
         updateNrLeft();
@@ -132,13 +147,12 @@ function createNewTodo(text, state = "active") {
         label.hidden = false;
         checkboxRound.style.opacity = 1;
 
-        // Wait a while before setting enabling input, preventing
-        // it from checking when user clicks on it while element on
-        // editing mode.
+        // Wait a while before setting enabling input, preventing it from
+        // checking when user clicks on it while element on editing mode.
         setTimeout(() => {
             checkboxRound.querySelector("input").disabled = false;
         }, 500);
-        const todoButtonRemove = createdListItem.querySelector(".todo-button-remove");
+        const todoButtonRemove = createdListItem.querySelector(".todo-remove-button");
         todoButtonRemove.style.visibility = "visible";
 
         updateLocalStorage();
@@ -156,7 +170,6 @@ function createNewTodo(text, state = "active") {
                 ifToDolistEmpty();
                 updateNrLeft();
             }
-
             updateLocalStorage();
         }
     });
@@ -170,13 +183,13 @@ function createNewTodo(text, state = "active") {
             checkbox.checked = false;
             break;
     }
+
     checkbox.addEventListener("change", () => { 
         updateCheckboxStyle(createdListItem);
-
         updateLocalStorage();
     });
-    updateNrLeft();
 
+    updateNrLeft();
     // Return element for easier reference.
     return createdListItem;
 }
@@ -189,13 +202,12 @@ function updateLocalStorage(){
         text: ti.querySelector(".todo-label").textContent,
         state: ti.querySelector(".checkbox-round input").checked ? "completed" : "active"
     }));
-    localStorage.setItem("items", JSON.stringify(todoItemObjects));
+    localStorage.setItem("items", JSON.stringify(todoItemObjects));    
 }
 
 // Loads todos from localStorage and return as objects.
 function loadTodos() {
-    return JSON.parse(localStorage.getItem("items"));
-}
+    return JSON.parse(localStorage.getItem("items"));}
 
 // Checks/unchecks all items in Todo-list
 function onCheckAllButtonClick() {
@@ -254,7 +266,6 @@ function updateNrLeft() {
     const nrLeft = document.querySelector("#nr-left");
     const itemsLeft = document.querySelector("#items-left");
 
-
     // Hide/show "Clear completed" button.
     if (todoItemsChecked.length === 0) {
         const checkClearButton = document.querySelector("#clear-button");
@@ -292,30 +303,30 @@ function updateCheckboxStyle(listItem) {
 // On "Filter-buttons click"
 function onAllRadioClick() {
     const todoItems = Array.from(document.querySelectorAll(".todo-item:not(.todo-item-blueprint)"));
-
     for (i = 0; i < todoItems.length; i++) {
         todoItems[i].style.display = "flex";
     }
+    localStorage.setItem("filter", "all");
 }
 
 function onActiveRadioClick() {
     const todoItems = Array.from(document.querySelectorAll(".todo-item:not(.todo-item-blueprint)"));
-    onAllRadioClick()
-
     for (i = 0; i < todoItems.length; i++) {
+        todoItems[i].style.display = "flex";
         if (todoItems[i].querySelector(".checkbox-round input").checked === true) {
             todoItems[i].style.display = "none";
         }
     }
+    localStorage.setItem("filter", "active");
 }
 
 function onCompletedRadioClick() {
     const todoItems = Array.from(document.querySelectorAll(".todo-item:not(.todo-item-blueprint)"));
-    onAllRadioClick()
-
     for (i = 0; i < todoItems.length; i++) {
+        todoItems[i].style.display = "flex";
         if (todoItems[i].querySelector(".checkbox-round input").checked === false) {
             todoItems[i].style.display = "none";
         }
     }
+    localStorage.setItem("filter", "completed");
 }

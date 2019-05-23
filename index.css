@@ -82,35 +82,30 @@ input#new-todo::placeholder{
     border-bottom: 1px solid #e6e6e6;
 }
 
-.todo-label:hover + div .todo-button-remove p {
+.todo-label:hover + div .todo-remove-button p {
     color: #CC9A9A;
     -webkit-transition: color 500ms;
     transition: color 1000ms;
 }
 
-/* .todo-textbox :hover + div .todo-button-remove:hover p {
-    color: rgba(0, 0, 0, 0);
-} */
-
 .todo-item-blueprint {
     display: none;
 }
 
-.todo-button-remove {
+.todo-remove-button {
     position: absolute;
     left: 100%;
     top: 50%;
     -webkit-transform: translate(-48px, -50%);
     transform: translate(-48px, -50%);
     background-color: rgba(0, 0, 0, 0);
-    /* opacity: 0; */
     border: 0;
     outline: rgba(0, 0, 0, 0);
     padding: 0 8px;
     border-radius: 50%;
 }
 
-.todo-button-remove p {
+.todo-remove-button p {
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
     font-size: 2.4em;
@@ -118,7 +113,7 @@ input#new-todo::placeholder{
     user-select: none;
 }
 
-.todo-button-remove:hover p{
+.todo-remove-button:hover p{
     color: #AF5B5E;
     -webkit-transition: color 500ms;
     transition: color 500ms;
@@ -134,20 +129,26 @@ input#new-todo::placeholder{
     text-align: left;
     outline: none;
 }
+
 .todo-label {
     overflow-wrap: break-word;
     width: 0;
 }
+
 .todo-label.checked {
     text-decoration: line-through;
     color: #d9d9d9;
 }
+
 .todo-textbox {
     box-shadow: inset 0 -1px 10px rgba(0, 0, 0, .2);
     border: 1px solid #999;
     width: 100%;
 }
-.todo-textbox::-ms-clear { display: none; width: 0; height: 0;}
+
+.todo-textbox::-ms-clear {
+    display: none; width: 0; height: 0;
+}
 
 .todo-item input[type="checkbox"] {
     display: none;
@@ -162,6 +163,7 @@ input#new-todo::placeholder{
     align-self: center;
     margin: 0 10px 0 10px;
 }
+
 .checkbox-round.checked {
     border: .5px solid #5dc2af;
 }
@@ -199,7 +201,6 @@ section.hidden {
 }
 
 nav {
-    /* border: 1px solid blue; */
     margin-top: 0.5px;
     margin-bottom: 4px;
 }
@@ -213,7 +214,6 @@ nav {
 }
 
 #filter-buttons {
-    /* border: 1px solid red; */
     padding-top: 4.5px;
     list-style: none;
     display: inline-flex;
@@ -276,7 +276,7 @@ footer {
     padding-top: 60px;
 }
 
-.footer {
+footer p {
     padding: .42em;
 }
 
