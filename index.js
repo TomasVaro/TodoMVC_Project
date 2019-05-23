@@ -209,7 +209,7 @@ function updateLocalStorage(){
 function loadTodos() {
     return JSON.parse(localStorage.getItem("items"));}
 
-// Checks/unchecks all items in Todo-list
+// Checks/unchecks all items in Todo-list.
 function onCheckAllButtonClick() {
     const todoItems = Array.from(document.querySelectorAll(".todo-item:not(.todo-item-blueprint)"));
     const allChecked = todoItems.every(ti => ti.querySelector(".checkbox-round input").checked === true);
@@ -226,13 +226,7 @@ function onCheckAllButtonClick() {
         });
     }
 
-    // If filter-button Active or Completed is checked update which Todo-items to see.
-    if (document.querySelector("#active").checked === true) {
-        onActiveRadioClick();
-    }
-    else if(document.querySelector("#completed").checked === true) {
-        onCompletedRadioClick();
-    }
+    onFilterButtonUppdateTodoItems();
     updateNrLeft();
 }
 
@@ -285,7 +279,7 @@ function updateNrLeft() {
     }
 }
 
-// Update checkbox style
+// Update checkbox style.
 function updateCheckboxStyle(listItem) {
     // Get child elements.
     const checkbox = listItem.querySelector(".checkbox-round");
@@ -297,10 +291,11 @@ function updateCheckboxStyle(listItem) {
         checkbox.classList.remove("checked");
         listItem.querySelector(".todo-label").classList.remove("checked");
     }
+    onFilterButtonUppdateTodoItems();
     updateNrLeft();
 }
 
-// On "Filter-buttons click"
+// On "Filter-buttons click".
 function onAllRadioClick() {
     const todoItems = Array.from(document.querySelectorAll(".todo-item:not(.todo-item-blueprint)"));
     for (i = 0; i < todoItems.length; i++) {
@@ -329,4 +324,14 @@ function onCompletedRadioClick() {
         }
     }
     localStorage.setItem("filter", "completed");
+}
+
+// If filter-button Active or Completed is checked update which Todo-items to see.
+function onFilterButtonUppdateTodoItems(){
+    if (document.querySelector("#active").checked === true) {
+        onActiveRadioClick();
+    }
+    else if(document.querySelector("#completed").checked === true) {
+        onCompletedRadioClick();
+    }
 }
