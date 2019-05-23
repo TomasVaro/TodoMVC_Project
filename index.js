@@ -97,7 +97,8 @@
         default:
             section.querySelector("input#all").checked = true;
             break;
-    }
+    }    
+    onFilterButtonUppdateTodoItems();
 })();
 
 // Creates a new todo list item element.
@@ -188,7 +189,7 @@ function createNewTodo(text, state = "active") {
         updateCheckboxStyle(createdListItem);
         updateLocalStorage();
     });
-
+    
     updateNrLeft();
     // Return element for easier reference.
     return createdListItem;
