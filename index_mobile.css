@@ -4,7 +4,7 @@ h1{
 
 body{
     margin: 0 5px 0 5px;
-    background-image: none;
+    background: none;
 }
 
 ::placeholder{
