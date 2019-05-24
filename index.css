@@ -7,6 +7,13 @@
 body {
 	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     background: #f6f6f6;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+body::before {
+    opacity: 0;
+    background: url("https://stmed.net/sites/default/files/brad-pitt-wallpapers-26487-8380635.jpg");
 }
 
 h1 {

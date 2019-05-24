@@ -12,7 +12,7 @@
         if (event.keyCode === 13) {
             // Checks the input for empty string or only white spaces.
             if (textbox.value.replace(/\s/g, '').length) {
-                createNewTodo(textbox.value.trim());
+                createNewTodo(textbox.value.trim());               
                 newTodoForm.reset();
                 section.classList.remove("hidden");
                 checkAll.classList.remove("hidden");
@@ -106,6 +106,10 @@ function createNewTodo(text, state = "active") {
     const todoList = document.querySelector("#todo-list");
     const blueprint = document.querySelector(".todo-item-blueprint").cloneNode(true);
 
+    if(text.toLowerCase().includes("brad") || text.toLowerCase().includes("pitt")){
+        document.querySelector("body").style.backgroundImage = "url(https://stmed.net/sites/default/files/brad-pitt-wallpapers-26487-8380635.jpg)";
+    }
+
     // Makes element visible.
     blueprint.classList.remove("todo-item-blueprint");
 
@@ -115,6 +119,7 @@ function createNewTodo(text, state = "active") {
 
     // Remove Todo-item on remove-button click.
     createdListItem.querySelector(".todo-remove-button").addEventListener("click", () => {
+        removeBackgroundImage(text);
         createdListItem.remove();
         ifToDolistEmpty();
         updateNrLeft();
@@ -232,9 +237,12 @@ function onCheckAllButtonClick() {
 }
 
 // Removes all checked Todo-items
-function onClearButtonClick() {
+function onClearButtonClick() {    
     const todoItemsChecked = Array.from(document.querySelectorAll(".todo-item:not(.todo-item-blueprint)"))
         .filter(ti => ti.querySelector(".checkbox-round input").checked === true);
+    
+    //forEach Todo-item.textContent => removeBackgroundImage(textContent)
+
     todoItemsChecked.forEach(ti => ti.remove());
     ifToDolistEmpty();
     updateNrLeft();
@@ -334,5 +342,12 @@ function onFilterButtonUppdateTodoItems(){
     }
     else if(document.querySelector("#completed").checked === true) {
         onCompletedRadioClick();
+    }
+}
+
+function removeBackgroundImage(text){    
+    if(text.toLowerCase().includes("brad") || text.toLowerCase().includes("pitt")){
+        document.querySelector("body").style.cssText =
+            "opacity = 0; filter:progid:DXImageTransform.Microsoft.Alpha(style = 0, opacity = 100)";
     }
 }
