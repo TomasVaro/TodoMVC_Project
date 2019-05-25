@@ -1,10 +1,11 @@
 body{
     margin: 0 5px 0 5px;
-    background: none;
+    background-image: none !important;
 }
 
 h1{
     padding: 0;
+    font-size: 5em;
 }
 
 ::placeholder{
