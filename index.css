@@ -50,7 +50,7 @@ main {
     width: 100%;
     font-size: 1.5em;
     position: relative;
-    padding: 19px 14px 17px 60px;
+    padding: 19px 14px 18px 60px;
 }
 
 #check-all {
@@ -126,9 +126,19 @@ main {
     transition: color 500ms;
 }
 
+.checkbox-round {
+    position: relative;
+    border: .6px solid #e6e6e6;
+    border-radius: 100%;
+    width: 30px;
+    height: 30px;
+    align-self: center;
+    margin: 0 10px 0 8px;
+}
+
 .todo-textbox, .todo-label{
-    padding: 15px 14px 20px 14px;
-    font-size: 1.55em;
+    padding: 16px 14px 14.9px 12px;
+    font-size: 1.5em;
     border: none;
     flex: 1;
     background-color: rgba(255, 255, 255, 0);
@@ -161,16 +171,6 @@ main {
     display: none;
 }
 
-.checkbox-round {
-    position: relative;
-    border: .6px solid #e6e6e6;
-    border-radius: 100%;
-    width: 30px;
-    height: 30px;
-    align-self: center;
-    margin: 0 10px 0 10px;
-}
-
 .checkbox-round.checked {
     border: .6px solid rgba(79, 168, 127, .5);
 }
@@ -196,7 +196,7 @@ main {
 section {
     display: grid;
     grid-template-columns: 1fr 3fr 1fr;
-    padding: .3em 0 .33em 0;
+    padding: .3em 0 .3em 0;
     box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2),
     0 8px 0 -3px #f6f6f6,
     0 9px 1px -3px rgba(0, 0, 0, 0.2),
@@ -222,14 +222,14 @@ nav {
 }
 
 #filter-buttons {
-    padding-top: 4.5px;
+    margin: 5px 0 0 0;
     list-style: none;
     display: inline-flex;
 }
 
 #filter-buttons label {
     margin: 4.8px;
-    padding: 3px 7.2px;
+    padding: 3px 6.8px;
     background: rgba(0, 0, 0, 0.003);
     border-style: solid;
     border-radius: 4px;
@@ -257,7 +257,7 @@ nav {
 }
 
 #clear-button {
-    padding: 5px 7px 0 0;
+    margin: 5px 0 0 -7px;
     list-style: none;
     display: inline-flex;
 }
