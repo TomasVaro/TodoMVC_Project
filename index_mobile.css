@@ -1,10 +1,10 @@
-h1{
-    padding: 0;
-}
-
 body{
     margin: 0 5px 0 5px;
     background: none;
+}
+
+h1{
+    padding: 0;
 }
 
 ::placeholder{
@@ -14,6 +14,10 @@ body{
 #new-todo {
     padding: 19px 0px 19px 51px;
     font-size: 1.4em;
+}
+
+.todo-remove-button p{
+    color: #CC9A9A;
 }
 
 section {
@@ -31,4 +35,9 @@ ul {
 
 footer{
     padding-top: 40px;
+}
+
+a{
+    color: #bfbfbf;
+    text-decoration: underline;
 }

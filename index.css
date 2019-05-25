@@ -36,13 +36,13 @@ main {
                 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-form#new-todo-form {
+#new-todo-form {
     display: inline-flex;
     width: 100%;
     position: relative;
 }
 
-input#new-todo {
+#new-todo {
     border: none;
     outline:none;
     color: #4d4d4d;
@@ -50,10 +50,10 @@ input#new-todo {
     width: 100%;
     font-size: 1.5em;
     position: relative;
-    padding: 19px 14px 20px 60px;
+    padding: 19px 14px 17px 60px;
 }
 
-button#check-all {
+#check-all {
     -webkit-transform: rotate(90deg);
     transform: rotate(90deg);
     position: absolute;
@@ -66,18 +66,18 @@ button#check-all {
     padding: 10px 19px 10px 22px;
 }
 
-button#check-all.hidden {
+#check-all.hidden {
     display: none;
 }
 
-input#new-todo::placeholder{
+#new-todo::placeholder{
     color: rgba(0, 0, 0, 0.1);
     font-style: italic;
 }
 
 #todo-and-items-left {
     position: relative;
-    box-shadow: 0 -1px 3px -1px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 -0.5px 3px -1px rgba(0, 0, 0, 0.2);
     border-top: 1px solid #e6e6e6;
 }
 
@@ -163,16 +163,16 @@ input#new-todo::placeholder{
 
 .checkbox-round {
     position: relative;
-    border: .5px solid #e6e6e6;
+    border: .6px solid #e6e6e6;
     border-radius: 100%;
-    width: 32px;
-    height: 32px;
+    width: 30px;
+    height: 30px;
     align-self: center;
     margin: 0 10px 0 10px;
 }
 
 .checkbox-round.checked {
-    border: .5px solid #5dc2af;
+    border: .6px solid rgba(79, 168, 127, .5);
 }
 
 .checkbox-round input[type="checkbox"]:checked + .checkmark {
@@ -181,14 +181,15 @@ input#new-todo::placeholder{
 
 .checkmark {
     position: absolute;
-    top: 15px;
-    left: 8px;
+    padding: 2px 0 13px 0;
+    top: 3px;
+    left: 10px;
     width: 10px;
     height: 18px;
-    border-bottom: 2px solid #5dc2af;
-    border-right: 2px solid #5dc2af;
-    -webkit-transform: rotate(45deg);
-    transform: rotate(45deg) translate(-50%, -50%);
+    border-bottom: 1.5px solid #5dc2af;
+    border-right: 1.5px solid #5dc2af;
+    -webkit-transform: rotate(40deg);
+    transform: rotate(40deg);
     opacity: 0;
 }
 

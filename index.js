@@ -23,6 +23,7 @@
                 }
             }
             updateLocalStorage();
+            onAllTodoItemChecked();
         }
     });
 
@@ -122,6 +123,7 @@ function createNewTodo(text, state = "active") {
         removeBackgroundImage(text);
         createdListItem.remove();
         ifToDolistEmpty();
+        onAllTodoItemChecked();
         updateNrLeft();
         updateLocalStorage();
     });
@@ -232,6 +234,7 @@ function onCheckAllButtonClick() {
         });
     }
 
+    onAllTodoItemChecked();
     onFilterButtonUppdateTodoItems();
     updateNrLeft();
 }
@@ -240,10 +243,12 @@ function onCheckAllButtonClick() {
 function onClearButtonClick() {    
     const todoItemsChecked = Array.from(document.querySelectorAll(".todo-item:not(.todo-item-blueprint)"))
         .filter(ti => ti.querySelector(".checkbox-round input").checked === true);
-    
-    //forEach Todo-item.textContent => removeBackgroundImage(textContent)
 
+    // Removes background
+    todoItemsChecked.forEach(ti => removeBackgroundImage(ti.querySelector(".todo-textbox").value));
+       
     todoItemsChecked.forEach(ti => ti.remove());
+    document.querySelector("#check-all").style.color = "#e6e6e6";
     ifToDolistEmpty();
     updateNrLeft();
 }
@@ -301,6 +306,7 @@ function updateCheckboxStyle(listItem) {
         listItem.querySelector(".todo-label").classList.remove("checked");
     }
     onFilterButtonUppdateTodoItems();
+    onAllTodoItemChecked();
     updateNrLeft();
 }
 
@@ -345,9 +351,21 @@ function onFilterButtonUppdateTodoItems(){
     }
 }
 
-function removeBackgroundImage(text){    
+function removeBackgroundImage(text){
     if(text.toLowerCase().includes("brad") || text.toLowerCase().includes("pitt")){
-        document.querySelector("body").style.cssText =
-            "opacity = 0; filter:progid:DXImageTransform.Microsoft.Alpha(style = 0, opacity = 100)";
+        document.querySelector("body").style = "";
+    }
+}
+
+function onAllTodoItemChecked(){
+    const todoItems = Array.from(document.querySelectorAll(".todo-item:not(.todo-item-blueprint)"));
+    const todoItemsChecked = todoItems.filter(ti => ti.querySelector(".checkbox-round input").checked === true);
+    const checkAll = document.querySelector("#check-all");
+
+    if (todoItems.length === todoItemsChecked.length) {
+        checkAll.style.color = "#737373";
+    }
+    else{
+        checkAll.style.color = "#e6e6e6";
     }
 }
