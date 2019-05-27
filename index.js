@@ -5,18 +5,24 @@
     const section = document.querySelector("section");
     const checkAll = document.querySelector("#check-all");
 
-    newTodoForm.onsubmit = event => event.preventDefault();
-    
+    newTodoForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        
+        // Landscape mode. 
+        if (window.matchMedia("screen and (min-width: 500px) and (max-width: 850px)").matches)
+            textbox.scrollIntoView({behavior: 'smooth'});
+    });
+
     // Checks for press on Enter (keyCode = 13) on adding new Todo-textbox.
     newTodoForm.addEventListener("keydown", (event) => {
         if (event.keyCode === 13) {
             // Checks the input for empty string or only white spaces.
-            if (textbox.value.replace(/\s/g, '').length) {
+            if (textbox.value.replace(/\s+/g, '').length) {
                 createNewTodo(textbox.value.trim());               
                 newTodoForm.reset();
                 section.classList.remove("hidden");
                 checkAll.classList.remove("hidden");
-
+                
                 // Hides new Todo-items if Completed-button is checked.
                 if (document.querySelector("#completed").checked === true) {
                     onCompletedRadioClick();
@@ -25,6 +31,12 @@
             updateLocalStorage();
             onAllTodoItemChecked();
         }
+    });
+    
+    textbox.addEventListener("focus", () => {
+        // Landscape mode.
+        if (window.matchMedia("screen and (min-width: 500px) and (max-width: 850px)").matches)
+            textbox.scrollIntoView({behavior: 'smooth'});
     });
 
     // Load todos from localStorage and create todo-item elements.
@@ -55,13 +67,16 @@
     window.addEventListener("hashchange", () => {
         switch (window.location.hash) {
             case "#/all":
-                document.querySelector("#filter-buttons input#all").checked = true;
+                section.querySelector("#filter-buttons input#all").checked = true;
+                onAllRadioClick();
                 break;
             case "#/active":
-                document.querySelector("#filter-buttons input#active").checked = true;
+                section.querySelector("#filter-buttons input#active").checked = true;
+                onActiveRadioClick();
                 break;
             case "#/completed":
-                document.querySelector("#filter-buttons input#completed").checked = true;
+                section.querySelector("#filter-buttons input#completed").checked = true;
+                onCompletedRadioClick();
                 break;
         }
     });
