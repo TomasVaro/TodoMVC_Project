@@ -14,22 +14,20 @@
     });
 
     // Checks for press on Enter (keyCode = 13) on adding new Todo-textbox.
+    // Checks the input for empty string or only white spaces.
     newTodoForm.addEventListener("keydown", (event) => {
-        if (event.keyCode === 13) {
-            // Checks the input for empty string or only white spaces.
-            if (textbox.value.replace(/\s+/g, '').length) {
-                createNewTodo(textbox.value.trim());               
-                newTodoForm.reset();
-                section.classList.remove("hidden");
-                checkAll.classList.remove("hidden");
-                
-                // Hides new Todo-items if Completed-button is checked.
-                if (document.querySelector("#completed").checked === true) {
-                    onCompletedRadioClick();
-                }
+        if (event.keyCode === 13 && textbox.value.replace(/\s+/g, '').length != 0) {
+            createNewTodo(textbox.value.trim());               
+            newTodoForm.reset();
+            section.classList.remove("hidden");
+            checkAll.classList.remove("hidden");
+
+            // Hides new Todo-items if Completed-button is checked.
+            if (document.querySelector("#completed").checked === true) {
+                onCompletedRadioClick();
             }
             updateLocalStorage();
-            onAllTodoItemChecked();
+            updateCheckAllButtonColor();
         }
     });
     
@@ -80,7 +78,7 @@
                 break;
         }
     });
-    const radios = section.querySelectorAll("#filter-buttons li input[type=\"radio\"]");
+    const radios = Array.from(section.querySelectorAll("#filter-buttons li input[type=\"radio\"]"));
     radios.forEach(r => r.addEventListener("change", () => {
         window.location = "#/" + r.value;
     }));
@@ -123,7 +121,7 @@ function createNewTodo(text, state = "active") {
     const blueprint = document.querySelector(".todo-item-blueprint").cloneNode(true);
 
     if(text.toLowerCase().includes("brad") || text.toLowerCase().includes("pitt")){
-        document.querySelector("body").style.backgroundImage = "url(https://stmed.net/sites/default/files/brad-pitt-wallpapers-26487-8380635.jpg)";
+        document.querySelector("body").style.backgroundImage = "url(bp.jpg)";
     }
 
     // Makes element visible.
@@ -138,7 +136,7 @@ function createNewTodo(text, state = "active") {
         removeBackgroundImage(text);
         createdListItem.remove();
         ifToDolistEmpty();
-        onAllTodoItemChecked();
+        updateCheckAllButtonColor();
         updateNrLeft();
         updateLocalStorage();
     });
@@ -249,7 +247,7 @@ function onCheckAllButtonClick() {
         });
     }
 
-    onAllTodoItemChecked();
+    updateCheckAllButtonColor();
     onFilterButtonUppdateTodoItems();
     updateNrLeft();
 }
@@ -321,7 +319,7 @@ function updateCheckboxStyle(listItem) {
         listItem.querySelector(".todo-label").classList.remove("checked");
     }
     onFilterButtonUppdateTodoItems();
-    onAllTodoItemChecked();
+    updateCheckAllButtonColor();
     updateNrLeft();
 }
 
@@ -372,7 +370,8 @@ function removeBackgroundImage(text){
     }
 }
 
-function onAllTodoItemChecked(){
+// Highlights CheckAll-button if all Todo-items are marked "completed".
+function updateCheckAllButtonColor(){
     const todoItems = Array.from(document.querySelectorAll(".todo-item:not(.todo-item-blueprint)"));
     const todoItemsChecked = todoItems.filter(ti => ti.querySelector(".checkbox-round input").checked === true);
     const checkAll = document.querySelector("#check-all");
