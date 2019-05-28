@@ -8,7 +8,7 @@
     newTodoForm.addEventListener("submit", (event) => {
         event.preventDefault();
         
-        // Landscape mode. 
+        // For smaller screens (mobiles incl. in landscape mode). 
         if (window.matchMedia("screen and (max-width: 850px)").matches)
             textbox.scrollIntoView({behavior: 'smooth'});
     });
@@ -31,8 +31,8 @@
         }
     });
     
-    textbox.addEventListener("focus", () => {
-        // Landscape mode.
+    // For smaller screens (mobiles incl. in landscape mode).
+    textbox.addEventListener("focus", () => {        
         if (window.matchMedia("screen and (max-width: 850px)").matches)
             textbox.scrollIntoView({behavior: 'smooth'});
     });
