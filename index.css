@@ -36,6 +36,7 @@ main {
                 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
+/* NEW-TODO STYLES */
 #new-todo-form {
     display: inline-flex;
     width: 100%;
@@ -75,6 +76,7 @@ main {
     font-style: italic;
 }
 
+/* TODO-ITEMS STYLES */
 #todo-and-items-left {
     position: relative;
     box-shadow: 0 -0.5px 3px -1px rgba(0, 0, 0, 0.2);
@@ -189,6 +191,7 @@ main {
     opacity: 0;
 }
 
+/* SECTION STYLES */
 section {
     display: grid;
     grid-template-columns: 1fr 3fr 1fr;
@@ -204,17 +207,17 @@ section.hidden {
     display: none;
 }
 
-nav {
-    margin-top: 0.5px;
-    margin-bottom: 4px;
-}
-
 #nr-items-left {
     color: #777;
     font-size: 0.875em;
     display: flex;
     flex-direction: row;
     padding: 7px 15px;
+}
+
+nav {
+    margin-top: 0.5px;
+    margin-bottom: 4px;
 }
 
 #filter-buttons {
@@ -273,6 +276,7 @@ nav {
     cursor: pointer;
 }
 
+/* FOOTER STYLES */
 footer {
     text-align: center;
     color: #bfbfbf;

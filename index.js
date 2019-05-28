@@ -9,7 +9,7 @@
         event.preventDefault();
         
         // Landscape mode. 
-        if (window.matchMedia("screen and (min-width: 500px) and (max-width: 850px)").matches)
+        if (window.matchMedia("screen and (max-width: 850px)").matches)
             textbox.scrollIntoView({behavior: 'smooth'});
     });
 
@@ -33,7 +33,7 @@
     
     textbox.addEventListener("focus", () => {
         // Landscape mode.
-        if (window.matchMedia("screen and (min-width: 500px) and (max-width: 850px)").matches)
+        if (window.matchMedia("screen and (max-width: 850px)").matches)
             textbox.scrollIntoView({behavior: 'smooth'});
     });
 
