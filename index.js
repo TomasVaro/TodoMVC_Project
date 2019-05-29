@@ -160,13 +160,13 @@ function createNewTodo(text, state = "active") {
 
     // Switch textbox to label on blur.
     textbox.addEventListener("blur", () => {
-        textboxToLabel(textbox, label, createdListItem);
+        textboxToLabel(createdListItem);
     });
 
     // Switch textbox to label on enter.
     textbox.addEventListener("keydown", (event) => {
         if (event.keyCode === 13) {
-            textboxToLabel(textbox, label, createdListItem);
+            textboxToLabel(createdListItem);
         }
     });
 
@@ -298,7 +298,9 @@ function updateCheckboxStyle(listItem) {
 }
 
 // Switches textbox to label
-function textboxToLabel(textbox, label, createdListItem) {
+function textboxToLabel(createdListItem) {
+    const textbox = createdListItem.querySelector(".todo-textbox");
+    const label = createdListItem.querySelector(".todo-label");
     const checkboxRound = createdListItem.querySelector(".checkbox-round");
     const todoButtonRemove = createdListItem.querySelector(".todo-remove-button");
     label.textContent = textbox.value;
@@ -311,7 +313,7 @@ function textboxToLabel(textbox, label, createdListItem) {
     }
     textbox.hidden = true;
     label.hidden = false;
-    
+
     // Wait a while before setting enabling input, preventing it from
     // checking when user clicks on it while element on editing mode.
     setTimeout(() => {
