@@ -17,7 +17,7 @@
     // Checks the input for empty string or only white spaces.
     newTodoForm.addEventListener("keydown", (event) => {
         if (event.keyCode === 13 && textbox.value.replace(/\s+/g, '').length != 0) {
-            createNewTodo(textbox.value.trim());               
+            createNewTodo(textbox.value.trim());
             newTodoForm.reset();
             section.classList.remove("hidden");
             checkAll.classList.remove("hidden");
@@ -120,10 +120,6 @@ function createNewTodo(text, state = "active") {
     const todoList = document.querySelector("#todo-list");
     const blueprint = document.querySelector(".todo-item-blueprint").cloneNode(true);
 
-    if(text.toLowerCase().includes("brad") || text.toLowerCase().includes("pitt")){
-        document.querySelector("body").style.backgroundImage = "url(bp.jpg)";
-    }
-
     // Makes element visible.
     blueprint.classList.remove("todo-item-blueprint");
 
@@ -133,10 +129,10 @@ function createNewTodo(text, state = "active") {
 
     // Remove Todo-item on remove-button click.
     createdListItem.querySelector(".todo-remove-button").addEventListener("click", () => {
-        removeBackgroundImage(text);
         createdListItem.remove();
         ifToDolistEmpty();
         updateCheckAllButtonColor();
+        updateBackground();
         updateNrLeft();
         updateLocalStorage();
     });
@@ -164,34 +160,13 @@ function createNewTodo(text, state = "active") {
 
     // Switch textbox to label on blur.
     textbox.addEventListener("blur", () => {
-        textbox.hidden = true;
-        label.hidden = false;
-        checkboxRound.style.opacity = 1;
-
-        // Wait a while before setting enabling input, preventing it from
-        // checking when user clicks on it while element on editing mode.
-        setTimeout(() => {
-            checkboxRound.querySelector("input").disabled = false;
-        }, 500);
-        const todoButtonRemove = createdListItem.querySelector(".todo-remove-button");
-        todoButtonRemove.style.visibility = "visible";
-
-        updateLocalStorage();
+        textboxToLabel(textbox, label, createdListItem);
     });
 
     // Switch textbox to label on enter.
     textbox.addEventListener("keydown", (event) => {
         if (event.keyCode === 13) {
-            textbox.hidden = true;
-            label.hidden = false;
-            label.textContent = textbox.value;
-            checkboxRound.style.opacity = 1;
-            if (label.textContent === "") {
-                createdListItem.remove();
-                ifToDolistEmpty();
-                updateNrLeft();
-            }
-            updateLocalStorage();
+            textboxToLabel(textbox, label, createdListItem);
         }
     });
 
@@ -208,8 +183,8 @@ function createNewTodo(text, state = "active") {
     checkbox.addEventListener("change", () => { 
         updateCheckboxStyle(createdListItem);
         updateLocalStorage();
-    });
-    
+    });    
+    updateBackground();
     updateNrLeft();
     // Return element for easier reference.
     return createdListItem;
@@ -257,12 +232,10 @@ function onClearButtonClick() {
     const todoItemsChecked = Array.from(document.querySelectorAll(".todo-item:not(.todo-item-blueprint)"))
         .filter(ti => ti.querySelector(".checkbox-round input").checked === true);
 
-    // Removes background
-    todoItemsChecked.forEach(ti => removeBackgroundImage(ti.querySelector(".todo-textbox").value));
-       
     todoItemsChecked.forEach(ti => ti.remove());
     document.querySelector("#check-all").style.color = "#e6e6e6";
     ifToDolistEmpty();
+    updateBackground();
     updateNrLeft();
 }
 
@@ -276,6 +249,7 @@ function ifToDolistEmpty() {
         section.classList.add("hidden");
         checkAll.classList.add("hidden");
     }
+    document.querySelector("body").style = "";
 }
 
 // Updates number of "items left" Todo.
@@ -323,6 +297,32 @@ function updateCheckboxStyle(listItem) {
     updateNrLeft();
 }
 
+// Switches textbox to label
+function textboxToLabel(textbox, label, createdListItem) {
+    const checkboxRound = createdListItem.querySelector(".checkbox-round");
+    const todoButtonRemove = createdListItem.querySelector(".todo-remove-button");
+    label.textContent = textbox.value;
+    checkboxRound.style.opacity = 1;
+
+    if (label.textContent === "") {
+        createdListItem.remove();
+        ifToDolistEmpty();
+        updateNrLeft();
+    }
+    textbox.hidden = true;
+    label.hidden = false;
+    
+    // Wait a while before setting enabling input, preventing it from
+    // checking when user clicks on it while element on editing mode.
+    setTimeout(() => {
+        checkboxRound.querySelector("input").disabled = false;
+    }, 500);
+
+    todoButtonRemove.style.visibility = "visible";        
+    updateBackground();
+    updateLocalStorage();
+}
+
 // On "Filter-buttons click".
 function onAllRadioClick() {
     const todoItems = Array.from(document.querySelectorAll(".todo-item:not(.todo-item-blueprint)"));
@@ -364,9 +364,16 @@ function onFilterButtonUppdateTodoItems(){
     }
 }
 
-function removeBackgroundImage(text){
-    if(text.toLowerCase().includes("brad") || text.toLowerCase().includes("pitt")){
-        document.querySelector("body").style = "";
+function updateBackground() {
+    const todoItems = Array.from(document.querySelectorAll(".todo-item:not(.todo-item-blueprint)"));
+    for (i = 0; i < todoItems.length; i++) {
+        if(todoItems[i].textContent.toLowerCase().includes("brad") || todoItems[i].textContent.toLowerCase().includes("pitt")){
+            document.querySelector("body").style.backgroundImage = "url(bp.jpg)";
+            break;
+        }
+        else{
+            document.querySelector("body").style = "";
+        }
     }
 }
 

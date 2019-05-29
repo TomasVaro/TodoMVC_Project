@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    /* outline: 1px solid red; */
 }
 
 body {
@@ -9,11 +10,6 @@ body {
     background: #f6f6f6;
     background-repeat: no-repeat;
     background-size: cover;
-}
-
-body::before {
-    opacity: 0;
-    background: url("https://stmed.net/sites/default/files/brad-pitt-wallpapers-26487-8380635.jpg");
 }
 
 h1 {
@@ -38,7 +34,7 @@ main {
 
 /* NEW-TODO STYLES */
 #new-todo-form {
-    display: inline-flex;
+    display: flex;
     width: 100%;
     position: relative;
 }
@@ -216,14 +212,14 @@ section.hidden {
 }
 
 nav {
-    margin-top: 0.5px;
-    margin-bottom: 4px;
+    margin: 0.5px 0 4px 0;
+    align-self: center;
 }
 
 #filter-buttons {
-    margin: 4.5px 0 0 0;
-    list-style: none;
-    display: inline-flex;
+    padding: 0 0 0 67px;
+    list-style-type: none;
+    display: flex;
 }
 
 #filter-buttons label {
@@ -256,9 +252,8 @@ nav {
 }
 
 #clear-button {
-    margin: 4.5px 0 0 -7px;
-    list-style: none;
-    display: inline-flex;
+    margin: 0 0 0 -7px;
+    list-style-type: none;
 }
 
 #clear-button button {

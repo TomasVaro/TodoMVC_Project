@@ -26,12 +26,12 @@ section {
     flex-direction: column;
 }
 
-div {
+#nr-items-left{    
     justify-content: center;
 }
 
-ul {
-    justify-content: center;
+#filter-buttons{
+    padding: 0 20px 0 0;
 }
 
 footer{
