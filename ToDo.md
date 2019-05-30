@@ -13,7 +13,7 @@ Er applikation ska bete sig som exemplet på TodoMVC-hemsidan, inklusive följan
 
 ### Krav för VG
 - [x] URL-hantering (att knapparna "All", "Active" och "Completed" ändrar på URL:en). Använd hashchange till detta.
-- [ ] Data som sparas mellan körningar med hjälp av localStorage.
+- [x] Data som sparas mellan körningar med hjälp av localStorage.
 - [x] Redigering av föremål genom dubbelklick.
 - [x] Den visuella "pappershög"-effekten under listan med föremål.
 - [x] De faktiska ikonerna som används på TodoMVC-hemsidan (istället för substituten som länkas till under kraven för godkänt).
