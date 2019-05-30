@@ -190,6 +190,10 @@ function createNewTodo(text, state = "active") {
     return createdListItem;
 }
 
+// Loads todos from localStorage and return as objects.
+function loadTodos() {
+    return JSON.parse(localStorage.getItem("items"));}
+
 // Saves changes to to localStorage. This function "looks" at the GUI and updates localStorage
 // based on what it "sees".
 function updateLocalStorage(){
@@ -200,10 +204,6 @@ function updateLocalStorage(){
     }));
     localStorage.setItem("items", JSON.stringify(todoItemObjects));    
 }
-
-// Loads todos from localStorage and return as objects.
-function loadTodos() {
-    return JSON.parse(localStorage.getItem("items"));}
 
 // Checks/unchecks all items in Todo-list.
 function onCheckAllButtonClick() {
@@ -227,7 +227,7 @@ function onCheckAllButtonClick() {
     updateNrLeft();
 }
 
-// Removes all checked Todo-items
+// Removes all checked Todo-items.
 function onClearButtonClick() {    
     const todoItemsChecked = Array.from(document.querySelectorAll(".todo-item:not(.todo-item-blueprint)"))
         .filter(ti => ti.querySelector(".checkbox-round input").checked === true);
@@ -280,7 +280,7 @@ function updateNrLeft() {
     }
 }
 
-// Update checkbox style.
+// Updates checkbox style.
 function updateCheckboxStyle(listItem) {
     // Get child elements.
     const checkbox = listItem.querySelector(".checkbox-round");
@@ -297,7 +297,7 @@ function updateCheckboxStyle(listItem) {
     updateNrLeft();
 }
 
-// Switches textbox to label
+// Switches textbox to label.
 function textboxToLabel(createdListItem) {
     const textbox = createdListItem.querySelector(".todo-textbox");
     const label = createdListItem.querySelector(".todo-label");
@@ -325,7 +325,7 @@ function textboxToLabel(createdListItem) {
     updateLocalStorage();
 }
 
-// On "Filter-buttons click".
+// Filters todo-items depending on which Filter-button is click.
 function onAllRadioClick() {
     const todoItems = Array.from(document.querySelectorAll(".todo-item:not(.todo-item-blueprint)"));
     for (i = 0; i < todoItems.length; i++) {
